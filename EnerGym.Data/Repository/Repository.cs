@@ -93,12 +93,34 @@ namespace EnerGym.Data.Repository
 
         public bool Update(TType item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.dbSet.Attach(item);
+                this.context.Entry(item).State = EntityState.Modified;
+                this.context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
-        public Task<bool> UpdateAsync(TType item)
+        public async Task<bool> UpdateAsync(TType item)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.dbSet.Attach(item);
+                this.context.Entry(item).State = EntityState.Modified;
+                await this.context.SaveChangesAsync();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }
