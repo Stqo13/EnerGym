@@ -36,12 +36,17 @@ namespace EnerGym.Data.Repository
 
         public IEnumerable<TType> GetAll()
         {
-            throw new NotImplementedException();
+            return this.dbSet.ToArray();
         }
 
-        public IEnumerable<TType> GetAllAsync()
+        public async Task<IEnumerable<TType>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await this.dbSet.ToArrayAsync();
+        }
+
+        public IEnumerable<TType> GetAllAttached()
+        {
+            return this.dbSet.AsQueryable();
         }
 
         public void Add(TType item)
