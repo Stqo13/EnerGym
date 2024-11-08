@@ -1,5 +1,6 @@
 ﻿using EnerGym.Data.Models.Configurations;
 using EnerGym.Data.Repository.Interfaces;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using System.Formats.Tar;
 
@@ -19,10 +20,26 @@ namespace EnerGym.Data.Repository
 
         public TType GetById(TId id)
         {
+            var entity = this.dbSet
+                .Find(id);
+
+            return entity;
+        }
+
+        public async Task<TType> GetByIdAsync(TId id)
+        {
+            var entity = await this.dbSet
+                .FindAsync(id);
+
+            return entity;
+        }
+
+        public IEnumerable<TType> GetAll()
+        {
             throw new NotImplementedException();
         }
 
-        public Task<TType> GetByIdAsync(TId id)
+        public IEnumerable<TType> GetAllAsync()
         {
             throw new NotImplementedException();
         }
@@ -43,16 +60,6 @@ namespace EnerGym.Data.Repository
         }
 
         public Task<bool> DeleteAsync(TId id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TType> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<TType> GetAllAsync()
         {
             throw new NotImplementedException();
         }
