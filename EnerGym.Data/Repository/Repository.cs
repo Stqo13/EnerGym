@@ -51,12 +51,14 @@ namespace EnerGym.Data.Repository
 
         public void Add(TType item)
         {
-            throw new NotImplementedException();
+            this.dbSet.Add(item);
+            this.context.SaveChanges();
         }
 
-        public Task AddAsync(TType item)
+        public async Task AddAsync(TType item)
         {
-            throw new NotImplementedException();
+            await this.dbSet.AddAsync(item);
+            await this.context.SaveChangesAsync();
         }
 
         public bool Delete(TId id)
