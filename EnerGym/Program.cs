@@ -21,6 +21,7 @@ namespace EnerGym
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequireDigit = true;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<EnerGymDbContext>()
