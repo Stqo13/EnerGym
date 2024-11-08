@@ -20,7 +20,7 @@ namespace EnerGym.Data.Repository
 
         public TType GetById(TId id)
         {
-            var entity = this.dbSet
+            TType entity = this.dbSet
                 .Find(id);
 
             return entity;
@@ -28,7 +28,7 @@ namespace EnerGym.Data.Repository
 
         public async Task<TType> GetByIdAsync(TId id)
         {
-            var entity = await this.dbSet
+            TType entity = await this.dbSet
                 .FindAsync(id);
 
             return entity;
@@ -63,12 +63,32 @@ namespace EnerGym.Data.Repository
 
         public bool Delete(TId id)
         {
-            throw new NotImplementedException();
+            TType entity = this.GetById(id);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            this.dbSet.Remove(entity);
+            this.context.SaveChanges();
+
+            return true;
         }
 
-        public Task<bool> DeleteAsync(TId id)
+        public async Task<bool> DeleteAsync(TId id)
         {
-            throw new NotImplementedException();
+            TType entity = await this.GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                return false;
+            }
+
+            this.dbSet.Remove(entity);
+            await this.context.SaveChangesAsync();
+
+            return true;
         }
 
         public bool Update(TType item)
