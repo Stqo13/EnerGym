@@ -1,6 +1,8 @@
 using EnerGym.Data;
 using EnerGym.Data.Models;
 using EnerGym.Data.Models.Configurations;
+using EnerGym.Data.Repository;
+using EnerGym.Data.Repository.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,7 +28,16 @@ namespace EnerGym
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<EnerGymDbContext>()
             .AddDefaultTokenProviders();
+
+            builder.Services.ConfigureApplicationCookie(cfg =>
+            {
+                cfg.LoginPath = "/Identity/Account/Login";
+            });
+
+            //Need to add for all the tables that need the repo
+            //builder.Services.AddScoped<IRepository<MembershipPlan, int>, Repository<MembershipPlan, int>>();
             
+
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
 
