@@ -12,12 +12,12 @@ namespace EnerGym.Data.Models
 
         [Comment("Workout Plan Name")]
         [Required]
-        [MaxLength(PlanNameMaxLenght)]
+        [MaxLength(PlanNameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Comment("Workout Plan Description")]
         [Required]
-        [MaxLength(DescriptionMaxLenght)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
         public virtual ICollection<WorkoutRoutine> Routines { get; set; }

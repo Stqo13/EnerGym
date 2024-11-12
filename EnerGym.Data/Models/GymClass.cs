@@ -14,7 +14,7 @@ namespace EnerGym.Data.Models
 
         [Comment("Gym Class Name")]
         [Required]
-        [MaxLength(ClassNameMaxLenght)]
+        [MaxLength(ClassNameMaxLength)]
         public string ClassName { get; set; } = null!;
 
         [Comment("Gym Class Attendants Capacity")]
@@ -22,7 +22,7 @@ namespace EnerGym.Data.Models
         public int Capacity { get; set; }
 
         [Comment("Gym Class Description")]
-        [MaxLength(DescriptionMaxLenght)]
+        [MaxLength(DescriptionMaxLength)]
         public string? Description { get; set; }
 
         [Comment("Soft Delete Flag")]

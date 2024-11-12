@@ -24,6 +24,8 @@ namespace EnerGym
             {
                 options.SignIn.RequireConfirmedAccount = true;
                 options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireUppercase = true;
             })
             .AddRoles<IdentityRole>()
             .AddEntityFrameworkStores<EnerGymDbContext>()
@@ -35,8 +37,13 @@ namespace EnerGym
             });
 
             //Need to add for all the tables that need the repo
-            //builder.Services.AddScoped<IRepository<MembershipPlan, int>, Repository<MembershipPlan, int>>();
-            
+            builder.Services.AddScoped<IRepository<MembershipPlan, int>, Repository<MembershipPlan, int>>();
+            builder.Services.AddScoped<IRepository<GymClass, int>, Repository<GymClass, int>>();
+            builder.Services.AddScoped<IRepository<AttendantClass, object>, Repository<AttendantClass, object>>();
+            builder.Services.AddScoped<IRepository<Progress, int>, Repository<Progress, int>>();
+            builder.Services.AddScoped<IRepository<Schedule, int>, Repository<Schedule, int>>();
+            builder.Services.AddScoped<IRepository<WorkoutPlan, int>, Repository<WorkoutPlan, int>>();
+            builder.Services.AddScoped<IRepository<WorkoutRoutine, int>, Repository<WorkoutRoutine, int>>();
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();

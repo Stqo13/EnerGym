@@ -13,21 +13,24 @@ namespace EnerGym.Data.Models
 
         [Comment("Workout Routine Exercise Name")]
         [Required]
-        [MaxLength(ExerciseNameMaxLenght)]
+        [MaxLength(ExerciseNameMaxLength)]
         public string ExerciseName { get; set; } = null!;
 
         [Comment("Exercise Description")]
         [Required]
-        [MaxLength(DescriptionMaxLenght)]
+        [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
 
         [Comment("Exercise Equipment Weight")]
-        [Required]
-        public double Weight { get; set; }
+        public double? Weight { get; set; }
 
         [Comment("Exercise Reps")]
         [Required]
         public int Reps { get; set; }
+
+        [Comment("Exercise Sets")]
+        [Required]
+        public int Sets { get; set; }
 
         [Comment("Workout Plan Foreign Key")]
         public int WorkoutPlanId { get; set; }

@@ -26,4 +26,8 @@
     <ProjectReference Include="..\EnerGym.ViewModels\EnerGym.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Workout\" />
+  </ItemGroup>
+
 </Project>

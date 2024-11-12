@@ -9,12 +9,12 @@ namespace EnerGym.Data.Models
     {
         [Comment("User's First Name")]
         [Required]
-        [MaxLength(FirstNameMaxLenght)]
+        [MaxLength(FirstNameMaxLength)]
         public string FirstName { get; set; } = null!;
 
         [Comment("User's Last Name")]
         [Required]
-        [MaxLength(LastNameMaxLenght)]
+        [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
     }
 }

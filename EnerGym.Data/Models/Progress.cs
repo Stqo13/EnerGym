@@ -28,7 +28,7 @@ namespace EnerGym.Data.Models
         public int TotalSets { get; set; }
 
         [Comment("List Of Future Goals")]
-        [MaxLength(NotesMaxLenght)]
+        [MaxLength(NotesMaxLength)]
         public string? Notes { get; set; }
 
         [Comment("Attendant's Progress Foreign Key")]

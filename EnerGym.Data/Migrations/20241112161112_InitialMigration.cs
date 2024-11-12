@@ -250,8 +250,9 @@ namespace EnerGym.Data.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ExerciseName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Workout Routine Exercise Name"),
                     Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false, comment: "Exercise Description"),
-                    Weight = table.Column<double>(type: "float", nullable: false, comment: "Exercise Equipment Weight"),
+                    Weight = table.Column<double>(type: "float", nullable: true, comment: "Exercise Equipment Weight"),
                     Reps = table.Column<int>(type: "int", nullable: false, comment: "Exercise Reps"),
+                    Sets = table.Column<int>(type: "int", nullable: false, comment: "Exercise Sets"),
                     WorkoutPlanId = table.Column<int>(type: "int", nullable: false, comment: "Workout Plan Foreign Key")
                 },
                 constraints: table =>

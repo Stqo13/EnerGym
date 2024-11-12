@@ -4,48 +4,48 @@
     {
         public static class MembershipPlanConstraints 
         {
-            public const int DescriptionMinLenght = 20;
+            public const int DescriptionMinLength = 20;
             public const int DescriptionMaxLenght = 200;
         }
 
         public static class GymClassConstraints 
         {
-            public const int ClassNameMinLenght = 20;
-            public const int ClassNameMaxLenght = 150;
-            public const int DescriptionMinLenght = 20;
-            public const int DescriptionMaxLenght = 200;
-            public const int InstructorNameMinLenght = 20;
-            public const int InstructorNameMaxLenght = 70;
+            public const int ClassNameMinLength = 20;
+            public const int ClassNameMaxLength = 150;
+            public const int DescriptionMinLength = 20;
+            public const int DescriptionMaxLength = 200;
+            public const int InstructorNameMinLength = 20;
+            public const int InstructorNameMaxLength = 70;
         }
 
         public static class ApplicationUserConstraints
         {
-            public const int FirstNameMinLenght = 20;
-            public const int FirstNameMaxLenght = 70;
-            public const int LastNameMinLenght = 20;
-            public const int LastNameMaxLenght = 70;
+            public const int FirstNameMinLength = 5;
+            public const int FirstNameMaxLength = 70;
+            public const int LastNameMinLength = 5;
+            public const int LastNameMaxLength = 70;
         }
 
         public static class WorkoutRoutineConstraints
         {
-            public const int ExerciseNameMinLenght = 20;
-            public const int ExerciseNameMaxLenght = 100;
-            public const int DescriptionMinLenght = 100;
-            public const int DescriptionMaxLenght = 300;
+            public const int ExerciseNameMinLength = 20;
+            public const int ExerciseNameMaxLength = 100;
+            public const int DescriptionMinLength = 100;
+            public const int DescriptionMaxLength = 300;
         }
 
         public static class WorkoutPlanConstraints
         {
-            public const int PlanNameMinLenght = 20;
-            public const int PlanNameMaxLenght = 70;
-            public const int DescriptionMinLenght = 100;
-            public const int DescriptionMaxLenght = 300;
+            public const int PlanNameMinLength = 20;
+            public const int PlanNameMaxLength = 70;
+            public const int DescriptionMinLength = 100;
+            public const int DescriptionMaxLength = 300;
         }
 
         public static class ProgressConstraints
         {
-            public const int NotesMinLenght = 100;
-            public const int NotesMaxLenght = 1000;
+            public const int NotesMinLength = 100;
+            public const int NotesMaxLength = 1000;
         }
     }
 }

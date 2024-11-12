@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    [Migration("20241031154900_InitialMigration")]
+    [Migration("20241112161112_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -338,7 +338,11 @@ namespace EnerGym.Data.Migrations
                         .HasColumnType("int")
                         .HasComment("Exercise Reps");
 
-                    b.Property<double>("Weight")
+                    b.Property<int>("Sets")
+                        .HasColumnType("int")
+                        .HasComment("Exercise Sets");
+
+                    b.Property<double?>("Weight")
                         .HasColumnType("float")
                         .HasComment("Exercise Equipment Weight");
 

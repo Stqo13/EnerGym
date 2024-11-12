@@ -316,14 +316,15 @@ namespace EnerGym.Data.Models.Configurations
                     Description = "A compound upper-body exercise that targets the chest, shoulders, and triceps.",
                     Weight = 60.0,
                     Reps = 12,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[0].Id,
                 },
                 new WorkoutRoutine
                 {
                     ExerciseName = "Squats",
                     Description = "A full-body exercise that primarily targets the quadriceps, hamstrings, and glutes.",
-                    Weight = 80.0,
                     Reps = 10,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[0].Id
                 },
                 new WorkoutRoutine
@@ -332,14 +333,15 @@ namespace EnerGym.Data.Models.Configurations
                     Description = "A strength exercise that works the lower back, glutes, and hamstrings.",
                     Weight = 100.0,
                     Reps = 8,
+                    Sets = 2,
                     WorkoutPlanId = workoutPlans[1].Id
                 },
                 new WorkoutRoutine
                 {
                     ExerciseName = "Jump Rope",
                     Description = "A cardio exercise that improves cardiovascular endurance and agility.",
-                    Weight = 0.0,
                     Reps = 200,
+                    Sets = 4,
                     WorkoutPlanId = workoutPlans[1].Id
                 },
                 new WorkoutRoutine
@@ -347,7 +349,8 @@ namespace EnerGym.Data.Models.Configurations
                     ExerciseName = "Lat Pulldown",
                     Description = "Strength exercise focused on the back muscles",
                     Weight = 70.0,
-                    Reps = 10,
+                    Reps = 12,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[2].Id
                 },
                 new WorkoutRoutine
@@ -356,14 +359,15 @@ namespace EnerGym.Data.Models.Configurations
                     Description = "Lower body exercise targeting quads and glutes",
                     Weight = 150.0,
                     Reps = 12,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[2].Id
                 },
                 new WorkoutRoutine
                 {
                     ExerciseName = "Push-Ups",
                     Description = "An upper-body exercise targeting chest, shoulders, and triceps, performed with bodyweight.",
-                    Weight = 0.0,
                     Reps = 20,
+                    Sets = 5,
                     WorkoutPlanId = workoutPlans[3].Id
                 },
                 new WorkoutRoutine
@@ -372,14 +376,15 @@ namespace EnerGym.Data.Models.Configurations
                     Description = "Upper body exercise focusing on the biceps",
                     Weight = 15.0,
                     Reps = 12,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[3].Id
                 },
                 new WorkoutRoutine
                 {
                     ExerciseName = "Tricep Dips",
                     Description = "Bodyweight exercise targeting the triceps",
-                    Weight = 0.0,  // Bodyweight exercise, so weight is 0
                     Reps = 15,
+                    Sets = 3,
                     WorkoutPlanId = workoutPlans[4].Id
                 }
             };

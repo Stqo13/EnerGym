@@ -1,4 +1,20 @@
-﻿<!DOCTYPE html>
+﻿@{
+    int currentYear = DateTime.UtcNow.Year;
+
+    int releaseYear = 2024;
+    string footerNote = "";
+
+    if (releaseYear == currentYear)
+    {
+        footerNote = currentYear.ToString();
+    }
+    else
+    {
+        footerNote = $"{releaseYear} - {currentYear}";
+    }
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -22,9 +38,6 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,7 +52,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - EnerGym - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @footerNote - EnerGym
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
