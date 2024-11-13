@@ -34,14 +34,14 @@ namespace EnerGym.Data.Repository
             return entity;
         }
 
-        public IEnumerable<TType> GetAll()
+        public ICollection<TType> GetAll()
         {
-            return this.dbSet.ToArray();
+            return this.dbSet.ToList();
         }
 
-        public async Task<IEnumerable<TType>> GetAllAsync()
+        public async Task<ICollection<TType>> GetAllAsync()
         {
-            return await this.dbSet.ToArrayAsync();
+            return await this.dbSet.ToListAsync();
         }
 
         public IQueryable<TType> GetAllAttached()

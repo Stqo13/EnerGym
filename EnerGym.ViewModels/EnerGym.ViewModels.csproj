@@ -6,4 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EnerGym.Common\EnerGym.Common.csproj" />
+    <ProjectReference Include="..\EnerGym.Data\EnerGym.Data.csproj" />
+  </ItemGroup>
+
 </Project>

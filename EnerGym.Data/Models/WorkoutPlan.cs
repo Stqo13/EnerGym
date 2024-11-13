@@ -15,10 +15,16 @@ namespace EnerGym.Data.Models
         [MaxLength(PlanNameMaxLength)]
         public string Name { get; set; } = null!;
 
+        [Comment("Workout plan image url")]
+        public string? ImageUrl { get; set; }
+
         [Comment("Workout Plan Description")]
         [Required]
         [MaxLength(DescriptionMaxLength)]
         public string Description { get; set; } = null!;
+
+        [Comment("Soft delete")]
+        public bool IsDeleted { get; set; } = false;
 
         public virtual ICollection<WorkoutRoutine> Routines { get; set; }
             = new List<WorkoutRoutine>();

@@ -299,6 +299,14 @@ namespace EnerGym.Data.Migrations
                         .HasColumnType("nvarchar(300)")
                         .HasComment("Workout Plan Description");
 
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Workout plan image url");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Soft delete");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(70)

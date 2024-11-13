@@ -4,7 +4,6 @@
     {
         public static class MembershipPlanConstraints 
         {
-            public const int DescriptionMinLength = 20;
             public const int DescriptionMaxLenght = 200;
         }
 
@@ -12,7 +11,6 @@
         {
             public const int ClassNameMinLength = 20;
             public const int ClassNameMaxLength = 150;
-            public const int DescriptionMinLength = 20;
             public const int DescriptionMaxLength = 200;
             public const int InstructorNameMinLength = 20;
             public const int InstructorNameMaxLength = 70;
@@ -30,7 +28,6 @@
         {
             public const int ExerciseNameMinLength = 20;
             public const int ExerciseNameMaxLength = 100;
-            public const int DescriptionMinLength = 100;
             public const int DescriptionMaxLength = 300;
         }
 
@@ -38,13 +35,11 @@
         {
             public const int PlanNameMinLength = 20;
             public const int PlanNameMaxLength = 70;
-            public const int DescriptionMinLength = 100;
             public const int DescriptionMaxLength = 300;
         }
 
         public static class ProgressConstraints
         {
-            public const int NotesMinLength = 100;
             public const int NotesMaxLength = 1000;
         }
     }

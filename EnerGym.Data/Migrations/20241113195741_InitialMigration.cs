@@ -59,7 +59,9 @@ namespace EnerGym.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Workout Plant Identifier")
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false, comment: "Workout Plan Name"),
-                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false, comment: "Workout Plan Description")
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Workout plan image url"),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false, comment: "Workout Plan Description"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Soft delete")
                 },
                 constraints: table =>
                 {

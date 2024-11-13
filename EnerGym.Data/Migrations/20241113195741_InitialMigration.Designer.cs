@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    [Migration("20241112161112_InitialMigration")]
+    [Migration("20241113195741_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -301,6 +301,14 @@ namespace EnerGym.Data.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)")
                         .HasComment("Workout Plan Description");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("nvarchar(max)")
+                        .HasComment("Workout plan image url");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Soft delete");
 
                     b.Property<string>("Name")
                         .IsRequired()
