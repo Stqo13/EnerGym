@@ -87,6 +87,14 @@ namespace EnerGym.Controllers
             return View(plan);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddRoutine()
+        {
+            var route = new WorkoutRoutineAddViewModel();
+
+            return View(route);
+        }
+
         private async Task<ICollection<WorkoutRoutine>> GetRoutines()
         {
             return await workoutRoutineRepository.GetAllAsync();

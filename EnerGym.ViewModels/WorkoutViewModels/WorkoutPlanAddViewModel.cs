@@ -12,7 +12,7 @@ namespace EnerGym.ViewModels.WorkoutViewModels
 
         public string? ImageUrl { get; set; }
 
-        [MaxLength(DescriptionMaxLength)]
+        [StringLength(DescriptionMaxLength, ErrorMessage = "Description mustn't exceed 300 characters.")]
         public string? PlanDescription { get; set; }
 
         public List<WorkoutRoutine> Routines { get; set; }
