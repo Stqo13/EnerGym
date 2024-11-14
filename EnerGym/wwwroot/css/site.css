@@ -1,24 +1,24 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 li.nav-item {
@@ -32,4 +32,26 @@ li.nav-item {
     gap: 2em;
     margin-top: 2em;
     flex-grow: 1;
+}
+
+.mb-2 add-save-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.add-workout-btn {
+    text-decoration: none;
+}
+
+.btn-warning{
+    padding: 6px 6px;
+}
+
+.py-2 {
+    padding: 8px 6px;
+}
+
+.card-footer{
+    border: none;
+    background-color: white;
 }

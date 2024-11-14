@@ -33,9 +33,9 @@
                 <span asp-validation-for="@Model.ImageUrl" class="text-danger"></span>
             </div>
 
-            <div class="mb-2">
-                <input class="btn btn-warning btn-dark-text w-100 py-2 fw-bold rounded" type="submit" value="Save" />
-                <a asp-controller="Workout" asp-action="AddRoutine" class="btn btn-primary"><i class="fas fa-plus"></i>Add Routine</a>
+            <div class="mb-2 add-save-buttons">
+                <input class="btn-warning btn-dark-text w-25 fw-bold rounded" type="submit" value="Save" />
+                <a asp-controller="Workout" asp-action="AddRoutine" class="add-workout-btn btn-primary w-25 py-2 rounded"><i class="fas fa-plus"></i>Add Routine</a>
             </div>
         </form>
     </div>

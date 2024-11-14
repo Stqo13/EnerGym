@@ -28,6 +28,7 @@ namespace EnerGym.Controllers
                 .Where(p => p.IsDeleted == false)
                 .Select(p => new WorkoutPlanInfoViewModel() 
                 { 
+                    Id = p.Id,
                     Name = p.Name,
                     ImageUrl = p.ImageUrl
                 })
@@ -63,6 +64,27 @@ namespace EnerGym.Controllers
             await workoutPlanRepository.AddAsync(plan);
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var entity = await workoutPlanRepository.GetByIdAsync(id);
+            
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            var plan = new WorkoutPlanDetailsViewModel()
+            {
+                Name = entity.Name,
+                ImageUrl = entity.ImageUrl,
+                Description = entity.Description,
+                Routines = entity.Routines
+            };
+
+            return View(plan);
         }
 
         private async Task<ICollection<WorkoutRoutine>> GetRoutines()
