@@ -3,6 +3,8 @@ using EnerGym.Data.Repository.Interfaces;
 using EnerGym.ViewModels.WorkoutViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System.Security.Cryptography;
 
 namespace EnerGym.Controllers
 {
@@ -78,6 +80,7 @@ namespace EnerGym.Controllers
 
             var plan = new WorkoutPlanDetailsViewModel()
             {
+                Id = entity.Id,
                 Name = entity.Name,
                 ImageUrl = entity.ImageUrl,
                 Description = entity.Description,
@@ -93,6 +96,118 @@ namespace EnerGym.Controllers
             var route = new WorkoutRoutineAddViewModel();
 
             return View(route);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRoutine(WorkoutRoutineAddViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            WorkoutRoutine routine = new WorkoutRoutine()
+            {
+                ExerciseName = model.ExerciseName,
+                Description = model.ExerciseDescription,
+                Weight = model.Weight,
+                Reps = model.Reps,
+                Sets = model.Sets,
+            };
+
+            await workoutRoutineRepository.AddAsync(routine);
+
+            return RedirectToAction(nameof(Add));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            var entity = await workoutPlanRepository.GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                return NotFound();
+            }
+
+            var plan = new EditPlanViewModel()
+            {
+                Id = entity.Id,
+                PlanName = entity.Name,
+                ImageUrl = entity.ImageUrl,
+                PlanDescription = entity.Description,
+                Routines = entity.Routines
+            };
+
+            return View(plan);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditPlanViewModel model, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            WorkoutPlan plan = await workoutPlanRepository.GetByIdAsync(id);
+
+            if (plan == null || plan.IsDeleted)
+            {
+                throw new ArgumentException("Invalid id!");
+            }
+
+            plan.Name = model.PlanName;
+            plan.ImageUrl = model.ImageUrl;
+            plan.Description = model.PlanDescription;
+            plan.Routines = model.Routines;
+
+            await workoutPlanRepository.UpdateAsync(plan);  
+
+            return RedirectToAction(nameof(Details), new { id = plan.Id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var plan = await workoutPlanRepository
+                .GetAllAttached()
+                .Where(p => p.IsDeleted == false)
+                .Where(p => p.Id == id)
+                .Select(p => new DeletePlanViewModel()
+                {
+                    Id = p.Id,
+                    PlanName = p.Name,
+                    PublishedBy = GetCurrentClientId()
+                })
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
+            return View(plan);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(DeletePlanViewModel model)
+        {
+            WorkoutPlan? plan = await workoutPlanRepository
+                .GetAllAttached()
+                .Where(p => p.Id == model.Id)
+                .Where(p => p.IsDeleted == false)
+                .FirstOrDefaultAsync();
+
+            if (plan != null)
+            {
+                plan.IsDeleted = true;
+
+                await workoutPlanRepository.UpdateAsync(plan);
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        private string GetCurrentClientId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
 
         private async Task<ICollection<WorkoutRoutine>> GetRoutines()
