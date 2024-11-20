@@ -1,5 +1,6 @@
-﻿@model EnerGym.ViewModels.WorkoutViewModels.WorkoutPlanDetailsViewModel
+﻿@using EnerGym.ViewModels.WorkoutPlanViewModels;
 
+@model WorkoutPlanDetailsViewModel
 @{
     ViewData["Title"] = "Plan Details";
 }
@@ -30,9 +31,9 @@
         </div>
         <div class="card-footer text-center">
             <div class="d-flex justify-content-between align-items-center">
-                <a asp-controller="Workout" asp-action="Index" class="btn btn-warning d-flex justify-content-center align-items-center flex-fill mx-1">Back</a>
-                <a asp-controller="Workout" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary d-flex justify-content-center align-items-center flex-fill mx-1">Edit</a>
-                <a asp-controller="Workout" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger d-flex justify-content-center align-items-center flex-fill mx-1" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
+                <a asp-controller="WorkoutPlan" asp-action="Index" class="btn btn-warning d-flex justify-content-center align-items-center flex-fill mx-1">Back</a>
+                <a asp-controller="WorkoutPlan" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary d-flex justify-content-center align-items-center flex-fill mx-1">Edit</a>
+                <a asp-controller="WorkoutPlan" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger d-flex justify-content-center align-items-center flex-fill mx-1" onclick="return confirm('Are you sure you want to delete this product?');">Delete</a>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using static EnerGym.Common.ApplicationConstraints.WorkoutPlanConstraints;
 
-namespace EnerGym.ViewModels.WorkoutViewModels
+namespace EnerGym.ViewModels.WorkoutPlanViewModels
 {
     public class EditPlanViewModel
     {

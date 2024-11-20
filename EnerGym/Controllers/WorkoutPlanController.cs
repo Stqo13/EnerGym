@@ -1,6 +1,7 @@
 ﻿using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
-using EnerGym.ViewModels.WorkoutViewModels;
+using EnerGym.ViewModels.WorkoutPlanViewModels;
+using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
@@ -8,12 +9,12 @@ using System.Security.Cryptography;
 
 namespace EnerGym.Controllers
 {
-    public class WorkoutController : Controller
+    public class WorkoutPlanController : Controller
     {
         private readonly IRepository<WorkoutRoutine, int> workoutRoutineRepository;
         private readonly IRepository<WorkoutPlan, int> workoutPlanRepository;
 
-        public WorkoutController(IRepository<WorkoutRoutine, int> workoutRoutineRepository,
+        public WorkoutPlanController(IRepository<WorkoutRoutine, int> workoutRoutineRepository,
             IRepository<WorkoutPlan, int> workoutPlanRepository)
         {
             this.workoutRoutineRepository = workoutRoutineRepository;
@@ -88,36 +89,6 @@ namespace EnerGym.Controllers
             };
 
             return View(plan);
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> AddRoutine()
-        {
-            var route = new WorkoutRoutineAddViewModel();
-
-            return View(route);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddRoutine(WorkoutRoutineAddViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            WorkoutRoutine routine = new WorkoutRoutine()
-            {
-                ExerciseName = model.ExerciseName,
-                Description = model.ExerciseDescription,
-                Weight = model.Weight,
-                Reps = model.Reps,
-                Sets = model.Sets,
-            };
-
-            await workoutRoutineRepository.AddAsync(routine);
-
-            return RedirectToAction(nameof(Add));
         }
 
         [HttpGet]

@@ -1,6 +1,6 @@
 ﻿using EnerGym.Data.Models;
 
-namespace EnerGym.ViewModels.WorkoutViewModels
+namespace EnerGym.ViewModels.WorkoutPlanViewModels
 {
     public class WorkoutPlanDetailsViewModel
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EnerGym.ViewModels.WorkoutViewModels
+namespace EnerGym.ViewModels.WorkoutPlanViewModels
 {
     public class WorkoutPlanInfoViewModel
     {

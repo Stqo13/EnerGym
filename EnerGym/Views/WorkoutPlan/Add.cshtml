@@ -1,4 +1,4 @@
-﻿@using EnerGym.ViewModels.WorkoutViewModels
+﻿@using EnerGym.ViewModels.WorkoutPlanViewModels;
 
 @model WorkoutPlanAddViewModel
 @{
@@ -35,7 +35,7 @@
 
             <div class="mb-2 add-save-buttons">
                 <input class="btn-warning btn-dark-text w-25 fw-bold rounded" type="submit" value="Save" />
-                <a asp-controller="Workout" asp-action="AddRoutine" class="add-workout-btn btn-primary w-35 py-2 rounded"><i class="fas fa-plus"></i>Add Routine</a>
+                <a asp-controller="WorkoutRoutine" asp-action="Add" class="add-workout-btn btn-primary w-35 py-2 rounded"><i class="fas fa-plus"></i>Add Routine</a>
             </div>
         </form>
     </div>

@@ -1,4 +1,4 @@
-﻿namespace EnerGym.ViewModels.WorkoutViewModels
+﻿namespace EnerGym.ViewModels.WorkoutPlanViewModels
 {
     public class DeletePlanViewModel
     {
