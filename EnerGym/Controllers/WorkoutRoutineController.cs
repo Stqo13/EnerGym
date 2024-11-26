@@ -1,29 +1,33 @@
 ﻿using EnerGym.Data.Models;
-using EnerGym.Data.Repository.Interfaces;
+using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EnerGym.Controllers
 {
-    public class WorkoutRoutineController : Controller
+    public class WorkoutRoutineController(
+        IWorkoutRoutineService workoutRoutineService,
+        ILogger logger)
+        : Controller
     {
-        private readonly IRepository<WorkoutRoutine, int> workoutRoutineRepository;
-        private readonly IRepository<WorkoutPlan, int> workoutPlanRepository;
+        
 
-        public WorkoutRoutineController(IRepository<WorkoutPlan, int> workoutPlanRepository,
-            IRepository<WorkoutRoutine, int> workoutRoutineRepository)
+        public async Task<IActionResult> Index()
         {
-            this.workoutRoutineRepository = workoutRoutineRepository;
-            this.workoutPlanRepository = workoutPlanRepository;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            try
+            {
+                var routines = await workoutRoutineService.GetAllWorkoutRoutinesAsync();
+                return View(routines);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while getting all workout routines. {ex.Message}");
+                return RedirectToAction("Error", "Index");
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             var route = new WorkoutRoutineAddViewModel();
 
@@ -38,16 +42,15 @@ namespace EnerGym.Controllers
                 return View(model);
             }
 
-            WorkoutRoutine routine = new WorkoutRoutine()
+            try
             {
-                ExerciseName = model.ExerciseName,
-                Description = model.ExerciseDescription,
-                Weight = model.Weight,
-                Reps = model.Reps,
-                Sets = model.Sets,
-            };
 
-            await workoutRoutineRepository.AddAsync(routine);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
 
             return RedirectToAction(nameof(Add));
         }

@@ -32,6 +32,9 @@ namespace EnerGym.Data.Models
         [Required]
         public int Sets { get; set; }
 
+        [Comment("Soft delete")]
+        public bool IsDeleted { get; set; } = false;
+
         [Comment("Workout Plan Foreign Key")]
         public int WorkoutPlanId { get; set; }
 

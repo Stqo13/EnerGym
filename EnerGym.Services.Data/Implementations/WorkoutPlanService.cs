@@ -2,6 +2,7 @@
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
+using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnerGym.Services.Data.Implementations
@@ -144,6 +145,53 @@ namespace EnerGym.Services.Data.Implementations
 
                 await workoutPlanRepository.UpdateAsync(plan);
             }
+        }
+
+        public async Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllRoutinesAsync()
+        {
+            var routines = await workoutRoutineRepository
+                .GetAllAttached()
+                .Select(r => new WorkoutRoutineInfoViewModel()
+                {
+                    ExerciseName = r.ExerciseName,
+                    ExerciseDescription = r.Description,
+                    Weight = r.Weight,
+                    Reps = r.Reps,
+                    Sets = r.Sets
+                })
+                .ToListAsync();
+
+            return routines;
+        }
+
+        public async Task AddRoutinesToPlanAsync(int workoutPlanId, List<int> routineIds)
+        {
+            var workoutPlan = await workoutPlanRepository.GetByIdAsync(workoutPlanId);
+
+            if (workoutPlan == null)
+            {
+                throw new ArgumentException("Workout plan not found!");
+            }
+
+            var routines = await workoutRoutineRepository
+                .GetAllAttached()
+                .Where(r => routineIds.Contains(r.Id))
+                .ToListAsync();
+
+            if (routines == null || routines.Count == 0)
+            {
+                throw new ArgumentException("No routines found with the provided IDs.");
+            }
+
+            foreach (var routine in routines)
+            {
+                if (!workoutPlan.Routines.Contains(routine))
+                {
+                    workoutPlan.Routines.Add(routine);
+                }
+            }
+
+            await workoutPlanRepository.UpdateAsync(workoutPlan);
         }
     }
 }

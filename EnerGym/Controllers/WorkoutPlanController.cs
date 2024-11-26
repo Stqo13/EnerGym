@@ -1,5 +1,6 @@
 ﻿using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
+using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -22,12 +23,12 @@ namespace EnerGym.Controllers
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while getting all workout plans. {ex.Message}");
-                return RedirectToAction("Error", "Home");   
+                return RedirectToAction("Error", "Home");
             }
         }
 
         [HttpGet]
-        public async Task<IActionResult> Add()
+        public IActionResult Add()
         {
             var workoutPlan = new WorkoutPlanAddViewModel();
 
@@ -135,9 +136,52 @@ namespace EnerGym.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddRoutines(int workoutPlanId)
+        {
+            try
+            {
+                var routines = await workoutPlanService.GetAllRoutinesAsync();
+                var model = new AddRoutinesViewModel
+                {
+                    WorkoutPlanId = workoutPlanId,
+                    AvailableRoutines = routines
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occurred while fetching routines. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddRoutines(AddRoutinesViewModel model)
+        {
+            if(model.SelectedRoutineIds == null || !model.SelectedRoutineIds.Any())
+            {
+                ModelState.AddModelError("", "Please select at least one routine.");
+                return View(model);
+            }
+
+            try
+            {
+                await workoutPlanService.AddRoutinesToPlanAsync(model.WorkoutPlanId, model.SelectedRoutineIds);
+                return RedirectToAction("Details", new { id = model.WorkoutPlanId });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occurred while adding routines to the plan. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
         private string GetCurrentClientName()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
     }
 }
+

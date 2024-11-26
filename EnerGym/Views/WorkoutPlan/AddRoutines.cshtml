@@ -1,0 +1,40 @@
+﻿@using EnerGym.ViewModels.WorkoutRoutineViewModels;
+@model AddRoutinesViewModel
+
+@{
+    ViewData["Title"] = "Add Routines to Plan";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3" style="margin-top: 20px;">
+    <h2>@ViewData["Title"]</h2>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="AddRoutines" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="WorkoutPlanId" value="@Model.WorkoutPlanId" />
+
+            <div class="mb-2">
+                <label class="form-label-add-edit">Select Routines</label>
+                <div>
+                    @foreach (var routine in Model.AvailableRoutines)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="SelectedRoutineIds" value="@routine.Id" id="routine-@routine.Id">
+                            <label class="form-check-label" for="routine-@routine.Id">
+                                @routine.ExerciseName
+                            </label>
+                        </div>
+                    }
+                </div>
+                <span asp-validation-for="SelectedRoutineIds" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2 add-save-buttons">
+                <input class="btn-warning btn-dark-text w-25 fw-bold rounded" type="submit" value="Save Routines" />
+                <a asp-controller="WorkoutPlan" asp-action="Index" class="btn btn-secondary w-35 py-2 rounded">Back to Plans</a>
+            </div>
+        </form>
+    </div>
+</div>

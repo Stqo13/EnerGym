@@ -1,5 +1,6 @@
 ﻿using EnerGym.Data.Models;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
+using EnerGym.ViewModels.WorkoutRoutineViewModels;
 
 namespace EnerGym.Services.Data.Interfaces
 {
@@ -18,5 +19,7 @@ namespace EnerGym.Services.Data.Interfaces
         Task<WorkoutPlan> EditPlanAsync(EditPlanViewModel model, int id);
 
         Task<DeletePlanViewModel> GetDeletePlanByIdAsync(int id, string publishedBy);
+
+        Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllRoutinesAsync();
     }
 }
