@@ -21,5 +21,7 @@ namespace EnerGym.Services.Data.Interfaces
         Task<DeletePlanViewModel> GetDeletePlanByIdAsync(int id, string publishedBy);
 
         Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllRoutinesAsync();
+
+        Task AddRoutinesToPlanAsync(int planId, List<int> selectedRoutinesIds);
     }
 }

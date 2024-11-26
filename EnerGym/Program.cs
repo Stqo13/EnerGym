@@ -3,6 +3,8 @@ using EnerGym.Data.Models;
 using EnerGym.Data.Models.Configurations;
 using EnerGym.Data.Repository;
 using EnerGym.Data.Repository.Interfaces;
+using EnerGym.Services.Data.Implementations;
+using EnerGym.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +15,8 @@ namespace EnerGym
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            //string adminEmail = builder.Configuration.GetValue<string>("Administrator:Email")!;
 
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
@@ -44,6 +48,10 @@ namespace EnerGym
             builder.Services.AddScoped<IRepository<Schedule, int>, Repository<Schedule, int>>();
             builder.Services.AddScoped<IRepository<WorkoutPlan, int>, Repository<WorkoutPlan, int>>();
             builder.Services.AddScoped<IRepository<WorkoutRoutine, int>, Repository<WorkoutRoutine, int>>();
+
+            builder.Services.AddScoped<IUserService, UserService>();
+            builder.Services.AddScoped<IWorkoutPlanSevice, WorkoutPlanService>();
+            builder.Services.AddScoped<IWorkoutRoutineService, WorkoutRoutineService>();
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();

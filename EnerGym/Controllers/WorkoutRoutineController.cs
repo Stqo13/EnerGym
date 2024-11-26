@@ -7,7 +7,7 @@ namespace EnerGym.Controllers
 {
     public class WorkoutRoutineController(
         IWorkoutRoutineService workoutRoutineService,
-        ILogger logger)
+        ILogger<WorkoutRoutineController> logger)
         : Controller
     {
         

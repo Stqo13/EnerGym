@@ -9,7 +9,7 @@
     <h2>@ViewData["Title"]</h2>
     @if (User?.Identity?.IsAuthenticated == true)
     {
-        <a asp-controller="WorkoutPlan" asp-action="Add" class="btn btn-primary"><i class="fas fa-plus"></i>Add Plan</a>
+        <a asp-controller="WorkoutPlan" asp-action="Add" class="btn btn-primary"><i class="fas fa-plus"></i> Add Plan</a>
     }
 </div>
 <hr />
@@ -30,8 +30,10 @@
                         {
                             <img src="~/img/no-image-available-02.jpg" class="card-img-top" style="max-height: 150px; object-fit: contain;" alt="No Image Available">
                         }
-
-                        <a asp-controller="WorkoutPlan" asp-action="Details" asp-route-id="@plan.Id" class="btn btn-info w-100 mt-auto">Details</a>
+                        <div class="d-flex justify-content-between mt-3">
+                            <a asp-controller="WorkoutPlan" asp-action="Details" asp-route-id="@plan.Id" class="btn btn-info w-50 me-1">Details</a>
+                            <a asp-controller="WorkoutPlan" asp-action="AddRoutines" asp-route-workoutPlanId="@plan.Id" class="btn btn-secondary w-50 ms-1">Add Routine</a>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -37,7 +37,19 @@
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WorkoutPlan" asp-action="Index">Workout</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="workoutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Workout
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="workoutDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="WorkoutPlan" asp-action="Index">Workout Plans</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="WorkoutRoutine" asp-action="Index">Workout Routines</a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <partial name="_LoginPartial" />

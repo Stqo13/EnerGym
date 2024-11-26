@@ -170,7 +170,7 @@ namespace EnerGym.Services.Data.Implementations
 
             if (workoutPlan == null)
             {
-                throw new ArgumentException("Workout plan not found!");
+                throw new NullReferenceException("Workout plan not found!");
             }
 
             var routines = await workoutRoutineRepository

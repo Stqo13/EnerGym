@@ -35,6 +35,9 @@ namespace EnerGym.Data.Models
         [Comment("Soft delete")]
         public bool IsDeleted { get; set; } = false;
 
+        [Comment("Routine ImageURL")]
+        public string? ImageUrl { get; set; }
+
         [Comment("Workout Plan Foreign Key")]
         public int WorkoutPlanId { get; set; }
 

@@ -14,6 +14,8 @@ namespace EnerGym.ViewModels.WorkoutRoutineViewModels
 
         public int? Weight { get; set; }
 
+        public string? ImageUrl { get; set; }
+
         [Required]
         public int Reps { get; set; }
         [Required]
