@@ -6,7 +6,9 @@ namespace EnerGym.Services.Data.Interfaces
 {
     public interface IWorkoutPlanSevice
     {
-        Task<IEnumerable<WorkoutPlanInfoViewModel>> GetAllAsync();
+        Task<IEnumerable<WorkoutPlanInfoViewModel>> GetAllAsync(int pageNumber, int pageSize);
+
+        Task<int> GetTotalPagesAsync(int pageSize);
 
         Task AddPlanAsync(WorkoutPlanAddViewModel model);
 
@@ -20,7 +22,7 @@ namespace EnerGym.Services.Data.Interfaces
 
         Task<DeletePlanViewModel> GetDeletePlanByIdAsync(int id, string publishedBy);
 
-        Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllRoutinesAsync();
+        Task<IEnumerable<WorkoutRoutineSelectViewModel>> GetAllRoutinesAsync();
 
         Task AddRoutinesToPlanAsync(int planId, List<int> selectedRoutinesIds);
     }

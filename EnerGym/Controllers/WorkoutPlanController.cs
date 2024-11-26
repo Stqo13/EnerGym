@@ -12,17 +12,26 @@ namespace EnerGym.Controllers
         : Controller
     {
         [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             try
             {
-                var plans = await workoutPlanService.GetAllAsync();
+                int pageSize = 3; // Define how many plans you want per page
+                var plans = await workoutPlanService.GetAllAsync(pageNumber, pageSize);
+                var totalPages = await workoutPlanService.GetTotalPagesAsync(pageSize);
 
-                return View(plans);
+                var viewModel = new WorkoutPlansIndexViewModel
+                {
+                    WorkoutPlans = plans,
+                    CurrentPage = pageNumber,
+                    TotalPages = totalPages
+                };
+
+                return View(viewModel);
             }
             catch (Exception ex)
             {
-                logger.LogError($"An error occured while getting all workout plans. {ex.Message}");
+                logger.LogError($"An error occurred while getting all workout plans. {ex.Message}");
                 return RedirectToAction("Error", "Home");
             }
         }
@@ -176,6 +185,14 @@ namespace EnerGym.Controllers
                 logger.LogError($"An error occurred while adding routines to the plan. {ex.Message}");
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ShowWorkoutRoutines(int id)
+        {
+            
+
+            return View();
         }
 
         private string GetCurrentClientName()

@@ -46,11 +46,13 @@ namespace EnerGym.Services.Data.Implementations
             return plan;
         }
 
-        public async Task<IEnumerable<WorkoutPlanInfoViewModel>> GetAllAsync()
+        public async Task<IEnumerable<WorkoutPlanInfoViewModel>> GetAllAsync(int pageNumber = 1, int pageSize = 3)
         {
             var plans = await workoutPlanRepository
                 .GetAllAttached()
                 .Where(p => p.IsDeleted == false)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Select(p => new WorkoutPlanInfoViewModel()
                 {
                     Id = p.Id,
@@ -61,6 +63,16 @@ namespace EnerGym.Services.Data.Implementations
                 .ToListAsync();
 
             return plans;
+        }
+
+        public async Task<int> GetTotalPagesAsync(int pageSize = 3)
+        {
+            var totalPlans = await workoutPlanRepository
+                .GetAllAttached()
+                .Where(p => p.IsDeleted == false)
+                .CountAsync();
+
+            return (int)Math.Ceiling(totalPlans / (double)pageSize);
         }
 
         public async Task<EditPlanViewModel> GetEditPlanByIdAsync(int id)
@@ -147,17 +159,14 @@ namespace EnerGym.Services.Data.Implementations
             }
         }
 
-        public async Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllRoutinesAsync()
+        public async Task<IEnumerable<WorkoutRoutineSelectViewModel>> GetAllRoutinesAsync()
         {
             var routines = await workoutRoutineRepository
                 .GetAllAttached()
-                .Select(r => new WorkoutRoutineInfoViewModel()
+                .Select(r => new WorkoutRoutineSelectViewModel()
                 {
-                    ExerciseName = r.ExerciseName,
-                    ExerciseDescription = r.Description,
-                    Weight = r.Weight,
-                    Reps = r.Reps,
-                    Sets = r.Sets
+                    Id= r.Id,
+                    ExerciseName = r.ExerciseName
                 })
                 .ToListAsync();
 
