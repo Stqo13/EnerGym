@@ -22,6 +22,10 @@
             public const int FirstNameMaxLength = 70;
             public const int LastNameMinLength = 5;
             public const int LastNameMaxLength = 70;
+
+            public const string AdminRole = "Admin";
+            public const string InstructorRole = "Instructor";
+            public const string MemberRole = "Member";
         }
 
         public static class WorkoutRoutineConstraints

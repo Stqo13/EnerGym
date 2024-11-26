@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EnerGym.Data
 {
-    public class EnerGymDbContext : IdentityDbContext<ApplicationUser>
+    public class EnerGymDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public EnerGymDbContext()
         {

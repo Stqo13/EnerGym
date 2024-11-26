@@ -11,14 +11,18 @@ namespace EnerGym.Controllers
 {
     public class WorkoutPlanController : Controller
     {
+        private readonly ILogger<WorkoutPlanController> logger;
         private readonly IRepository<WorkoutRoutine, int> workoutRoutineRepository;
         private readonly IRepository<WorkoutPlan, int> workoutPlanRepository;
 
-        public WorkoutPlanController(IRepository<WorkoutRoutine, int> workoutRoutineRepository,
-            IRepository<WorkoutPlan, int> workoutPlanRepository)
+        public WorkoutPlanController(
+            IRepository<WorkoutRoutine, int> workoutRoutineRepository,
+            IRepository<WorkoutPlan, int> workoutPlanRepository,
+            ILogger<WorkoutPlanController> logger)
         {
             this.workoutRoutineRepository = workoutRoutineRepository;
             this.workoutPlanRepository = workoutPlanRepository;
+            this.logger = logger;
         }
 
         [HttpGet]

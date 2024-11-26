@@ -23,7 +23,12 @@
   <ItemGroup>
     <ProjectReference Include="..\EnerGym.Common\EnerGym.Common.csproj" />
     <ProjectReference Include="..\EnerGym.Data\EnerGym.Data.csproj" />
+    <ProjectReference Include="..\EnerGym.Services.Data\EnerGym.Services.Data.csproj" />
     <ProjectReference Include="..\EnerGym.ViewModels\EnerGym.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Extensions\" />
   </ItemGroup>
 
 </Project>

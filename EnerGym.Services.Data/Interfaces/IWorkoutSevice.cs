@@ -2,12 +2,16 @@
 
 namespace EnerGym.Services.Data.Interfaces
 {
-    public interface IWorkoutSevice
+    public interface IWorkoutPlanSevice
     {
-        Task CreateAsync();
-        Task EditAsync();  
-        Task DeleteAsync();
+        Task GetAllAsync();
 
-        Task<IEnumerable<WorkoutPlan>> GetAllAsync();
+        Task AddPlanAsync();
+
+        Task RemovePlanAsync();
+
+        Task GetPlanDetailsAsync();
+
+        Task EditPlanAsync(WorkoutPlan plan, int id);
     }
 }

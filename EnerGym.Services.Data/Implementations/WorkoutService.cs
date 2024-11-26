@@ -3,24 +3,29 @@ using EnerGym.Services.Data.Interfaces;
 
 namespace EnerGym.Services.Data.Implementations
 {
-    public class WorkoutService : IWorkoutSevice
+    public class WorkoutService : IWorkoutPlanSevice
     {
-        public Task CreateAsync()
+        public Task AddPlanAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task DeleteAsync()
+        public Task EditPlanAsync(WorkoutPlan plan, int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task EditAsync()
+        public Task GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<WorkoutPlan>> GetAllAsync()
+        public Task GetPlanDetailsAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task RemovePlanAsync()
         {
             throw new NotImplementedException();
         }
