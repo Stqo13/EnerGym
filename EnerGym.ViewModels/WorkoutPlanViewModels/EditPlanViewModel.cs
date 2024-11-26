@@ -16,8 +16,5 @@ namespace EnerGym.ViewModels.WorkoutPlanViewModels
 
         [StringLength(DescriptionMaxLength, ErrorMessage = "Description mustn't exceed 300 characters.")]
         public string? PlanDescription { get; set; }
-
-        public ICollection<WorkoutRoutine> Routines { get; set; }
-            = new List<WorkoutRoutine>();
     }
 }

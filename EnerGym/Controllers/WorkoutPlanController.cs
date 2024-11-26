@@ -1,48 +1,29 @@
-﻿using EnerGym.Data.Models;
-using EnerGym.Data.Repository.Interfaces;
+﻿using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
-using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Security.Cryptography;
 
 namespace EnerGym.Controllers
 {
-    public class WorkoutPlanController : Controller
+    public class WorkoutPlanController(
+        IWorkoutPlanSevice workoutPlanService,
+        ILogger<WorkoutPlanController> logger)
+        : Controller
     {
-        private readonly ILogger<WorkoutPlanController> logger;
-        private readonly IRepository<WorkoutRoutine, int> workoutRoutineRepository;
-        private readonly IRepository<WorkoutPlan, int> workoutPlanRepository;
-
-        public WorkoutPlanController(
-            IRepository<WorkoutRoutine, int> workoutRoutineRepository,
-            IRepository<WorkoutPlan, int> workoutPlanRepository,
-            ILogger<WorkoutPlanController> logger)
-        {
-            this.workoutRoutineRepository = workoutRoutineRepository;
-            this.workoutPlanRepository = workoutPlanRepository;
-            this.logger = logger;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
+            try
+            {
+                var plans = await workoutPlanService.GetAllAsync();
 
-
-            var plans = await workoutPlanRepository
-                .GetAllAttached()
-                .Where(p => p.IsDeleted == false)
-                .Select(p => new WorkoutPlanInfoViewModel() 
-                { 
-                    Id = p.Id,
-                    Name = p.Name,
-                    ImageUrl = p.ImageUrl
-                })
-                .AsNoTracking()
-                .ToListAsync();
-
-            return View(plans);
+                return View(plans);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while getting all workout plans. {ex.Message}");
+                return RedirectToAction("Error", "Home");   
+            }
         }
 
         [HttpGet]
@@ -61,60 +42,47 @@ namespace EnerGym.Controllers
                 return View(model);
             }
 
-            WorkoutPlan plan = new WorkoutPlan()
+            try
             {
-                Name = model.PlanName,
-                Description = model.PlanDescription,
-                Routines = model.Routines
-            };
+                await workoutPlanService.AddPlanAsync(model);
 
-            await workoutPlanRepository.AddAsync(plan);
-
-            return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while adding workout plan. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var entity = await workoutPlanRepository.GetByIdAsync(id);
-            
-            if (entity == null)
+            try
             {
-                return NotFound();
+                var plan = await workoutPlanService.GetPlanDetailsAsync(id);
+                return View(plan);
             }
-
-            var plan = new WorkoutPlanDetailsViewModel()
+            catch (Exception ex)
             {
-                Id = entity.Id,
-                Name = entity.Name,
-                ImageUrl = entity.ImageUrl,
-                Description = entity.Description,
-                Routines = entity.Routines
-            };
-
-            return View(plan);
+                logger.LogError($"An error occured while trying to show workout plan details. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var entity = await workoutPlanRepository.GetByIdAsync(id);
-
-            if (entity == null)
+            try
             {
-                return NotFound();
+                var plan = await workoutPlanService.GetEditPlanByIdAsync(id);
+                return View(plan);
             }
-
-            var plan = new EditPlanViewModel()
+            catch (Exception ex)
             {
-                Id = entity.Id,
-                PlanName = entity.Name,
-                ImageUrl = entity.ImageUrl,
-                PlanDescription = entity.Description,
-                Routines = entity.Routines
-            };
-
-            return View(plan);
+                logger.LogError($"An error occured while trying to get the workout plan. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
@@ -125,69 +93,51 @@ namespace EnerGym.Controllers
                 return View(model);
             }
 
-            WorkoutPlan plan = await workoutPlanRepository.GetByIdAsync(id);
-
-            if (plan == null || plan.IsDeleted)
+            try
             {
-                throw new ArgumentException("Invalid id!");
+                var plan = await workoutPlanService.EditPlanAsync(model, id);
+                return RedirectToAction(nameof(Details), new { id = plan.Id });
             }
-
-            plan.Name = model.PlanName;
-            plan.ImageUrl = model.ImageUrl;
-            plan.Description = model.PlanDescription;
-            plan.Routines = model.Routines;
-
-            await workoutPlanRepository.UpdateAsync(plan);  
-
-            return RedirectToAction(nameof(Details), new { id = plan.Id });
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while trying to edit workout plan. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var plan = await workoutPlanRepository
-                .GetAllAttached()
-                .Where(p => p.IsDeleted == false)
-                .Where(p => p.Id == id)
-                .Select(p => new DeletePlanViewModel()
-                {
-                    Id = p.Id,
-                    PlanName = p.Name,
-                    PublishedBy = GetCurrentClientId()
-                })
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            return View(plan);
+            try
+            {
+                var plan = await workoutPlanService.GetDeletePlanByIdAsync(id, GetCurrentClientName());
+                return View(plan);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while showing delete workout plan {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> Delete(DeletePlanViewModel model)
         {
-            WorkoutPlan? plan = await workoutPlanRepository
-                .GetAllAttached()
-                .Where(p => p.Id == model.Id)
-                .Where(p => p.IsDeleted == false)
-                .FirstOrDefaultAsync();
-
-            if (plan != null)
+            try
             {
-                plan.IsDeleted = true;
-
-                await workoutPlanRepository.UpdateAsync(plan);
+                await workoutPlanService.DeletePlanAsync(model);
+                return RedirectToAction(nameof(Index));
             }
-
-            return RedirectToAction(nameof(Index));
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while trying to delete workout plan {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
-        private string GetCurrentClientId()
+        private string GetCurrentClientName()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
-        }
-
-        private async Task<ICollection<WorkoutRoutine>> GetRoutines()
-        {
-            return await workoutRoutineRepository.GetAllAsync();
         }
     }
 }
