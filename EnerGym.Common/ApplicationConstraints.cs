@@ -30,14 +30,14 @@
 
         public static class WorkoutRoutineConstraints
         {
-            public const int ExerciseNameMinLength = 20;
+            public const int ExerciseNameMinLength = 5;
             public const int ExerciseNameMaxLength = 100;
             public const int DescriptionMaxLength = 300;
         }
 
         public static class WorkoutPlanConstraints
         {
-            public const int PlanNameMinLength = 20;
+            public const int PlanNameMinLength = 5;
             public const int PlanNameMaxLength = 70;
             public const int DescriptionMaxLength = 300;
         }

@@ -3,6 +3,7 @@ using EnerGym.Data.Models;
 using EnerGym.Data.Models.Configurations;
 using EnerGym.Data.Repository;
 using EnerGym.Data.Repository.Interfaces;
+using EnerGym.Extensions;
 using EnerGym.Services.Data.Implementations;
 using EnerGym.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
@@ -40,18 +41,9 @@ namespace EnerGym
                 cfg.LoginPath = "/Identity/Account/Login";
             });
 
-            //Need to add for all the tables that need the repo
-            builder.Services.AddScoped<IRepository<MembershipPlan, int>, Repository<MembershipPlan, int>>();
-            builder.Services.AddScoped<IRepository<GymClass, int>, Repository<GymClass, int>>();
-            builder.Services.AddScoped<IRepository<AttendantClass, object>, Repository<AttendantClass, object>>();
-            builder.Services.AddScoped<IRepository<Progress, int>, Repository<Progress, int>>();
-            builder.Services.AddScoped<IRepository<Schedule, int>, Repository<Schedule, int>>();
-            builder.Services.AddScoped<IRepository<WorkoutPlan, int>, Repository<WorkoutPlan, int>>();
-            builder.Services.AddScoped<IRepository<WorkoutRoutine, int>, Repository<WorkoutRoutine, int>>();
-
-            builder.Services.AddScoped<IUserService, UserService>();
-            builder.Services.AddScoped<IWorkoutPlanSevice, WorkoutPlanService>();
-            builder.Services.AddScoped<IWorkoutRoutineService, WorkoutRoutineService>();
+            builder.Services
+                .RegisterRepositories()
+                .RegisterUserDefinedServices(); 
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();

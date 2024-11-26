@@ -27,8 +27,4 @@
     <ProjectReference Include="..\EnerGym.ViewModels\EnerGym.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Extensions\" />
-  </ItemGroup>
-
 </Project>

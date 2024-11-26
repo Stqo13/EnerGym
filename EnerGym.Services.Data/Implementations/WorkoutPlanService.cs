@@ -18,6 +18,7 @@ namespace EnerGym.Services.Data.Implementations
             {
                 Name = model.PlanName,
                 Description = model.PlanDescription,
+                ImageUrl = model.ImageUrl,
                 Routines = model.Routines
             };
 
@@ -201,6 +202,26 @@ namespace EnerGym.Services.Data.Implementations
             }
 
             await workoutPlanRepository.UpdateAsync(workoutPlan);
+        }
+
+        public async Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetRoutinesByPlanIdAsync(int id)
+        {
+            var routines = await workoutPlanRepository
+                .GetAllAttached()
+                .Where(p => p.Id == id && p.IsDeleted == false)
+                .SelectMany(p => p.Routines)
+                .Select(r => new WorkoutRoutineInfoViewModel()
+                {
+                    Id = r.Id,
+                    ExerciseName = r.ExerciseName,
+                    ExerciseDescription = r.Description,
+                    Sets = r.Sets,
+                    Reps = r.Reps
+                })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return routines;
         }
     }
 }

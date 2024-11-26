@@ -25,5 +25,7 @@ namespace EnerGym.Services.Data.Interfaces
         Task<IEnumerable<WorkoutRoutineSelectViewModel>> GetAllRoutinesAsync();
 
         Task AddRoutinesToPlanAsync(int planId, List<int> selectedRoutinesIds);
+
+        Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetRoutinesByPlanIdAsync(int id);
     }
 }

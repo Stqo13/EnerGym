@@ -16,7 +16,7 @@ namespace EnerGym.Controllers
         {
             try
             {
-                int pageSize = 3; // Define how many plans you want per page
+                int pageSize = 3;
                 var plans = await workoutPlanService.GetAllAsync(pageNumber, pageSize);
                 var totalPages = await workoutPlanService.GetTotalPagesAsync(pageSize);
 
@@ -190,9 +190,25 @@ namespace EnerGym.Controllers
         [HttpGet]
         public async Task<IActionResult> ShowWorkoutRoutines(int id)
         {
-            
+            try
+            {
+                var plan = await workoutPlanService.GetPlanDetailsAsync(id);
 
-            return View();
+                var routines = await workoutPlanService.GetRoutinesByPlanIdAsync(id);
+
+                var model = new WorkoutPlanWithRoutinesViewModel()
+                {
+                    Plan = plan,
+                    WorkoutRoutines = routines
+                };
+
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while fetching the plan's routines. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         private string GetCurrentClientName()
