@@ -2,6 +2,7 @@
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Numerics;
 
 namespace EnerGym.Controllers
 {
@@ -12,12 +13,22 @@ namespace EnerGym.Controllers
     {
         
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1)
         {
             try
             {
-                var routines = await workoutRoutineService.GetAllWorkoutRoutinesAsync();
-                return View(routines);
+                int pageSize = 3;
+                var routines = await workoutRoutineService.GetAllWorkoutRoutinesAsync(pageNumber, pageSize);
+                var totalPages = await workoutRoutineService.GetTotalPagesAsync(pageSize);
+
+                var model = new WorkoutRoutinesIndexViewModel()
+                {
+                    WorkoutRoutines = routines,
+                    CurrentPage = pageNumber,
+                    TotalPages = totalPages
+                };
+
+                return View(model);
             }
             catch (Exception ex)
             {
@@ -42,19 +53,104 @@ namespace EnerGym.Controllers
                 return View(model);
             }
 
+            await workoutRoutineService.AddWorkoutRoutineAsync(model);
+
+            return RedirectToAction(nameof(Index));
+
+            //try
+            //{
+            //    await workoutRoutineService.AddWorkoutRoutineAsync(model);
+
+            //    return RedirectToAction(nameof(Index));
+            //}
+            //catch (Exception ex)
+            //{
+            //    logger.LogError($"An error occured while trying to add workout routine. {ex.Message}");
+            //    return RedirectToAction("Error", "Home");
+            //}
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+        {
             try
             {
+                var routine = await workoutRoutineService.GetDeleteWorkoutRoutineByIdAsync(id);
 
+                return View(routine);
             }
             catch (Exception ex)
             {
-
-                throw;
+                logger.LogError($"An error occured while getting delete UI. {ex.Message}");
+                return RedirectToAction("Error", "Home");
             }
-
-            return RedirectToAction(nameof(Add));
         }
 
-        //public async Task<IActionResult> AddToPlan()
+        [HttpPost]
+        public async Task<IActionResult> Delete(WorkoutRoutineDeleteViewModel model)
+        {
+            try
+            {
+                await workoutRoutineService.DeleteWorkoutRoutineAsync(model);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while deleting workout routine. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                var routine = await workoutRoutineService.GetRoutineDetailsAsync(id);
+
+                return View(routine);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while trying to show workout routine details. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+        {
+            try
+            {
+                var routine = await workoutRoutineService.GetEditWorkoutPlanByIdAsync(id);
+                return View(routine);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error ocurred while fetching edit UI. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(WorkoutRoutineEditViewModel model, int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            try
+            {
+                var routine = await workoutRoutineService.EditWorkoutRoutine(model, id);
+                return RedirectToAction(nameof(Index), new { id = routine.Id });
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while edditing workout routine. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }

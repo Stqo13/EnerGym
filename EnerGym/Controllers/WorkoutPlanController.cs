@@ -8,7 +8,6 @@ namespace EnerGym.Controllers
 {
     public class WorkoutPlanController(
         IWorkoutPlanSevice workoutPlanService,
-        IWorkoutRoutineService workoutRoutineService,
         ILogger<WorkoutPlanController> logger)
         : Controller
     {
@@ -184,38 +183,6 @@ namespace EnerGym.Controllers
             catch (Exception ex)
             {
                 logger.LogError($"An error occurred while adding routines to the plan. {ex.Message}");
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> DeleteRoutine(int id)
-        {
-            try
-            {
-                var routine = await workoutRoutineService.GetDeleteWorkoutRoutineByIdAsync(id);
-
-                return View(routine);
-			}
-            catch (Exception ex)
-            {
-                logger.LogError($"An error occured while getting delete UI. {ex.Message}");
-                return RedirectToAction("Error", "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeleteRoutine(WorkoutRoutineDeleteViewModel model)
-        {
-            try
-            {
-                await workoutRoutineService.DeleteWorkoutRoutineAsync(model);
-
-				return RedirectToAction(nameof(ShowWorkoutRoutines));
-			}
-            catch (Exception ex)
-            {
-                logger.LogError($"An error occured while deleting workout routine. {ex.Message}");
                 return RedirectToAction("Error", "Home");
             }
         }

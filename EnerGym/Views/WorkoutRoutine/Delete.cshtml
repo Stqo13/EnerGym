@@ -15,11 +15,10 @@
         <div class="card-body text-center">
             <h5 class="card-title">@Model.ExerciseName</h5>
             <p class="card-text">@Model.ExerciseDescription</p>
-            <form method="post" asp-controller="WorkoutPlan" asp-action="DeleteRoutine" asp-route-id="@Model.Id">
-                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Confirm Delete</button>
-                <a asp-controller="WorkoutPlan" asp-action="ShowWorkoutRoutines" asp-route-id="@Model.WorkoutPlanId" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Cancel</a>
+            <form method="post" asp-controller="WorkoutRoutine" asp-action="Delete" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i>Confirm Delete</button>
+                <a asp-controller="WorkoutRoutine" asp-action="Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Cancel</a>
             </form>
         </div>
     </div>
 </div>
-

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    [Migration("20241126154727_AddedImageUrlToRoutines")]
-    partial class AddedImageUrlToRoutines
+    [Migration("20241127184344_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -576,7 +576,7 @@ namespace EnerGym.Data.Migrations
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutRoutine", b =>
                 {
                     b.HasOne("EnerGym.Data.Models.WorkoutPlan", "WorkoutPlan")
-                        .WithMany("Routines")
+                        .WithMany("WorkoutRoutines")
                         .HasForeignKey("WorkoutPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -644,7 +644,7 @@ namespace EnerGym.Data.Migrations
 
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutPlan", b =>
                 {
-                    b.Navigation("Routines");
+                    b.Navigation("WorkoutRoutines");
                 });
 #pragma warning restore 612, 618
         }

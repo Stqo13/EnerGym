@@ -255,6 +255,8 @@ namespace EnerGym.Data.Migrations
                     Weight = table.Column<double>(type: "float", nullable: true, comment: "Exercise Equipment Weight"),
                     Reps = table.Column<int>(type: "int", nullable: false, comment: "Exercise Reps"),
                     Sets = table.Column<int>(type: "int", nullable: false, comment: "Exercise Sets"),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Soft delete"),
+                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Routine ImageURL"),
                     WorkoutPlanId = table.Column<int>(type: "int", nullable: false, comment: "Workout Plan Foreign Key")
                 },
                 constraints: table =>

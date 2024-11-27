@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    [Migration("20241113195741_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20241127214433_RemovedImageUrlFromRoutine")]
+    partial class RemovedImageUrlFromRoutine
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -342,6 +342,10 @@ namespace EnerGym.Data.Migrations
                         .HasColumnType("nvarchar(100)")
                         .HasComment("Workout Routine Exercise Name");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit")
+                        .HasComment("Soft delete");
+
                     b.Property<int>("Reps")
                         .HasColumnType("int")
                         .HasComment("Exercise Reps");
@@ -568,7 +572,7 @@ namespace EnerGym.Data.Migrations
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutRoutine", b =>
                 {
                     b.HasOne("EnerGym.Data.Models.WorkoutPlan", "WorkoutPlan")
-                        .WithMany("Routines")
+                        .WithMany("WorkoutRoutines")
                         .HasForeignKey("WorkoutPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -636,7 +640,7 @@ namespace EnerGym.Data.Migrations
 
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutPlan", b =>
                 {
-                    b.Navigation("Routines");
+                    b.Navigation("WorkoutRoutines");
                 });
 #pragma warning restore 612, 618
         }

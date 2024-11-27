@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Azure.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using static EnerGym.Common.ApplicationConstraints.WorkoutPlanConstraints;
 
@@ -26,7 +27,7 @@ namespace EnerGym.Data.Models
         [Comment("Soft delete")]
         public bool IsDeleted { get; set; } = false;
 
-        public virtual ICollection<WorkoutRoutine> Routines { get; set; }
+        public virtual ICollection<WorkoutRoutine> WorkoutRoutines { get; set; }
             = new List<WorkoutRoutine>();
     }
 }
