@@ -1,0 +1,25 @@
+﻿@using EnerGym.ViewModels.WorkoutRoutineViewModels;
+@model WorkoutRoutineDeleteViewModel
+
+@{
+    ViewData["Title"] = "Delete Routine";
+}
+
+<div class="container mt-5">
+    <h2 class="text-center">@ViewData["Title"]</h2>
+    <p class="text-center text-danger">
+        Are you sure you want to delete the following routine? This action cannot be undone.
+    </p>
+
+    <div class="card mx-auto mt-4" style="max-width: 500px;">
+        <div class="card-body text-center">
+            <h5 class="card-title">@Model.ExerciseName</h5>
+            <p class="card-text">@Model.ExerciseDescription</p>
+            <form method="post" asp-controller="WorkoutPlan" asp-action="DeleteRoutine" asp-route-id="@Model.Id">
+                <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Confirm Delete</button>
+                <a asp-controller="WorkoutPlan" asp-action="ShowWorkoutRoutines" asp-route-id="@Model.WorkoutPlanId" class="btn btn-secondary"><i class="fas fa-arrow-left"></i>Cancel</a>
+            </form>
+        </div>
+    </div>
+</div>
+

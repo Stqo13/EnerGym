@@ -3,13 +3,15 @@ using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace EnerGym.Services.Data.Implementations
 {
     public class WorkoutPlanService (
         IRepository<WorkoutRoutine, int> workoutRoutineRepository,
-        IRepository<WorkoutPlan, int> workoutPlanRepository) 
+        IRepository<WorkoutPlan, int> workoutPlanRepository,
+        UserManager<ApplicationUser> userManager) 
         : IWorkoutPlanSevice
     {
         public async Task AddPlanAsync(WorkoutPlanAddViewModel model)
@@ -126,18 +128,28 @@ namespace EnerGym.Services.Data.Implementations
 
         public async Task<DeletePlanViewModel> GetDeletePlanByIdAsync(int id, string publishedBy)
         {
-            var plan = await workoutPlanRepository
+            var user = await userManager.FindByIdAsync(publishedBy);
+
+            if (user == null)
+            {
+                throw new NullReferenceException("User Id was invalid!");
+            }
+
+            string? username = $"{user.FirstName} {user.LastName}";
+
+			var plan = await workoutPlanRepository
                 .GetAllAttached()
                 .Where(p => p.Id == id && p.IsDeleted == false)
                 .Select(p => new DeletePlanViewModel()
                 {
                     Id = p.Id,
                     PlanName = p.Name,
-                    PublishedBy = publishedBy
+                    PublishedBy = username ?? string.Empty
                 })
                 .FirstOrDefaultAsync();
 
-            if (plan == null)
+
+			if (plan == null)
             {
                 throw new NullReferenceException("Entity not found!");
             }

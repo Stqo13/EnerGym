@@ -6,6 +6,8 @@ namespace EnerGym.Services.Data.Interfaces
     {
         Task AddWorkoutRoutineAsync(WorkoutRoutineAddViewModel model);
         Task<IEnumerable<WorkoutRoutineInfoViewModel>> GetAllWorkoutRoutinesAsync();
-        Task DeleteWorkoutRoutineAsync();
+        Task DeleteWorkoutRoutineAsync(WorkoutRoutineDeleteViewModel model);
+        Task<WorkoutRoutineDeleteViewModel> GetDeleteWorkoutRoutineByIdAsync(int id);
+        
     }
 }

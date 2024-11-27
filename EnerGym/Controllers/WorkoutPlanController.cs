@@ -8,6 +8,7 @@ namespace EnerGym.Controllers
 {
     public class WorkoutPlanController(
         IWorkoutPlanSevice workoutPlanService,
+        IWorkoutRoutineService workoutRoutineService,
         ILogger<WorkoutPlanController> logger)
         : Controller
     {
@@ -120,7 +121,7 @@ namespace EnerGym.Controllers
         {
             try
             {
-                var plan = await workoutPlanService.GetDeletePlanByIdAsync(id, GetCurrentClientName());
+                var plan = await workoutPlanService.GetDeletePlanByIdAsync(id, GetCurrentClientId());
                 return View(plan);
             }
             catch (Exception ex)
@@ -188,6 +189,38 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> DeleteRoutine(int id)
+        {
+            try
+            {
+                var routine = await workoutRoutineService.GetDeleteWorkoutRoutineByIdAsync(id);
+
+                return View(routine);
+			}
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while getting delete UI. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteRoutine(WorkoutRoutineDeleteViewModel model)
+        {
+            try
+            {
+                await workoutRoutineService.DeleteWorkoutRoutineAsync(model);
+
+				return RedirectToAction(nameof(ShowWorkoutRoutines));
+			}
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while deleting workout routine. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpGet]
         public async Task<IActionResult> ShowWorkoutRoutines(int id)
         {
             try
@@ -211,7 +244,7 @@ namespace EnerGym.Controllers
             }
         }
 
-        private string GetCurrentClientName()
+        private string GetCurrentClientId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
