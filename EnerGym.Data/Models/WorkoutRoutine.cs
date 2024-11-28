@@ -36,10 +36,10 @@ namespace EnerGym.Data.Models
         public bool IsDeleted { get; set; } = false;
 
         [Comment("Workout Plan Foreign Key")]
-        public int WorkoutPlanId { get; set; }
+        public int? WorkoutPlanId { get; set; }
 
         [Comment("Workout Plan Navigation Property")]
         [ForeignKey(nameof(WorkoutPlanId))]
-        public virtual WorkoutPlan WorkoutPlan { get; set; } = null!;
+        public virtual WorkoutPlan? WorkoutPlan { get; set; } = null!;
     }
 }

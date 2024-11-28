@@ -1,11 +1,7 @@
 using EnerGym.Data;
 using EnerGym.Data.Models;
 using EnerGym.Data.Models.Configurations;
-using EnerGym.Data.Repository;
-using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Extensions;
-using EnerGym.Services.Data.Implementations;
-using EnerGym.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

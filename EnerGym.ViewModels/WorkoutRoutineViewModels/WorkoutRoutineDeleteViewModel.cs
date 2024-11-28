@@ -8,6 +8,6 @@
 
 		public string? ExerciseDescription { get; set;}
 
-		public required int WorkoutPlanId { get; set; }
+		public int? WorkoutPlanId { get; set; }
 	}
 }

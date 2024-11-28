@@ -1,7 +1,6 @@
 ﻿using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
-using EnerGym.ViewModels.WorkoutPlanViewModels;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +19,6 @@ namespace EnerGym.Services.Data.Implementations
                 Weight = model.Weight,
                 Sets = model.Sets,
                 Reps = model.Reps
-                //The plan id
             };
 
             await workoutRoutineRepository.AddAsync(routine);

@@ -355,7 +355,7 @@ namespace EnerGym.Data.Migrations
                         .HasColumnType("float")
                         .HasComment("Exercise Equipment Weight");
 
-                    b.Property<int>("WorkoutPlanId")
+                    b.Property<int?>("WorkoutPlanId")
                         .HasColumnType("int")
                         .HasComment("Workout Plan Foreign Key");
 
@@ -570,9 +570,7 @@ namespace EnerGym.Data.Migrations
                 {
                     b.HasOne("EnerGym.Data.Models.WorkoutPlan", "WorkoutPlan")
                         .WithMany("WorkoutRoutines")
-                        .HasForeignKey("WorkoutPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkoutPlanId");
 
                     b.Navigation("WorkoutPlan");
                 });

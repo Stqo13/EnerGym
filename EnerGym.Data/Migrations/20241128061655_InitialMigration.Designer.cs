@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    [Migration("20241127214433_RemovedImageUrlFromRoutine")]
-    partial class RemovedImageUrlFromRoutine
+    [Migration("20241128061655_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -358,7 +358,7 @@ namespace EnerGym.Data.Migrations
                         .HasColumnType("float")
                         .HasComment("Exercise Equipment Weight");
 
-                    b.Property<int>("WorkoutPlanId")
+                    b.Property<int?>("WorkoutPlanId")
                         .HasColumnType("int")
                         .HasComment("Workout Plan Foreign Key");
 
@@ -573,9 +573,7 @@ namespace EnerGym.Data.Migrations
                 {
                     b.HasOne("EnerGym.Data.Models.WorkoutPlan", "WorkoutPlan")
                         .WithMany("WorkoutRoutines")
-                        .HasForeignKey("WorkoutPlanId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("WorkoutPlanId");
 
                     b.Navigation("WorkoutPlan");
                 });

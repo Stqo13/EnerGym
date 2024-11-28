@@ -256,8 +256,7 @@ namespace EnerGym.Data.Migrations
                     Reps = table.Column<int>(type: "int", nullable: false, comment: "Exercise Reps"),
                     Sets = table.Column<int>(type: "int", nullable: false, comment: "Exercise Sets"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, comment: "Soft delete"),
-                    ImageUrl = table.Column<string>(type: "nvarchar(max)", nullable: true, comment: "Routine ImageURL"),
-                    WorkoutPlanId = table.Column<int>(type: "int", nullable: false, comment: "Workout Plan Foreign Key")
+                    WorkoutPlanId = table.Column<int>(type: "int", nullable: true, comment: "Workout Plan Foreign Key")
                 },
                 constraints: table =>
                 {
@@ -266,8 +265,7 @@ namespace EnerGym.Data.Migrations
                         name: "FK_WorkoutRoutines_WorkoutPlans_WorkoutPlanId",
                         column: x => x.WorkoutPlanId,
                         principalTable: "WorkoutPlans",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
