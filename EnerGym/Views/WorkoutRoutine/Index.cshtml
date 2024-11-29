@@ -5,58 +5,67 @@
     ViewData["Title"] = "Workout Routines";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-3" style="margin-top: 20px;">
-    <h2>@ViewData["Title"]</h2>
-    @if (User?.Identity?.IsAuthenticated == true)
-    {
-        <a asp-controller="WorkoutRoutine" asp-action="Add" class="btn btn-primary"><i class="fas fa-plus"></i> Add Routine</a>
-    }
-</div>
-<hr />
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">@ViewData["Title"]</h2>
+        @if (User?.Identity?.IsAuthenticated == true)
+        {
+            <a asp-controller="WorkoutRoutine" asp-action="Add" class="btn btn-primary">
+                <i class="fas fa-plus"></i> Add Routine
+            </a>
+        }
+    </div>
+    <hr />
 
-<div class="row text-center justify-content-center">
-    @foreach (var routine in Model.WorkoutRoutines)
-    {
-        <div class="col-md-3 mb-4 d-flex">
-            <div class="card h-100 w-100">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">@routine.ExerciseName</h5>
-                    <p class="flex-fill">@routine.ExerciseDescription</p>
+    <div class="row g-4">
+        @foreach (var routine in Model.WorkoutRoutines)
+        {
+            <div class="col-md-4 col-sm-6 d-flex">
+                <div class="card shadow-sm h-100 w-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title text-center text-primary">@routine.ExerciseName</h5>
+                        <p class="text-muted flex-fill text-center">@routine.ExerciseDescription</p>
 
-                    <div class="mt-auto">
-                        <div class="d-flex justify-content-between">
-                            <a asp-controller="WorkoutRoutine" asp-action="Details" asp-route-id="@routine.Id" class="btn btn-info w-50 me-1">Details</a>
-                            <a asp-controller="WorkoutRoutine" asp-action="Edit" asp-route-id="@routine.Id" class="btn btn-secondary w-50 ms-1">Edit</a>
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-center gap-2">
+                                <a asp-controller="WorkoutRoutine" asp-action="Details" asp-route-id="@routine.Id" class="btn btn-info btn-sm">
+                                    Details
+                                </a>
+                                <a asp-controller="WorkoutRoutine" asp-action="Edit" asp-route-id="@routine.Id" class="btn btn-secondary btn-sm">
+                                    Edit
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <nav>
+            <ul class="pagination">
+                @if (Model.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)">Previous</a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
+                    </li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)">Next</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
 </div>
-
-<div class="d-flex justify-content-center mt-4">
-    <ul class="pagination">
-        @if (Model.CurrentPage > 1)
-        {
-            <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage - 1)">Previous</a>
-            </li>
-        }
-
-        @for (int i = 1; i <= Model.TotalPages; i++)
-        {
-            <li class="page-item @(i == Model.CurrentPage ? "active" : "")">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@i">@i</a>
-            </li>
-        }
-
-        @if (Model.CurrentPage < Model.TotalPages)
-        {
-            <li class="page-item">
-                <a class="page-link" asp-action="Index" asp-route-pageNumber="@(Model.CurrentPage + 1)">Next</a>
-            </li>
-        }
-    </ul>
-</div>
-
