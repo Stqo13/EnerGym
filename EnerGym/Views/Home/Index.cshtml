@@ -3,5 +3,81 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome to EnerGym</h1>
+    <div class="bg-primary text-white py-5">
+        <h1 class="display-4">Welcome to EnerGym</h1>
+        <p class="lead">Empowering You to Achieve Your Fitness Goals</p>
+        <a asp-controller="MembershipPlan" asp-action="Index" class="btn btn-light btn-lg mt-3">View Membership Plans</a>
+    </div>
+
+    <div class="container my-5">
+        <h2 class="text-center mb-4">Why Choose EnerGym?</h2>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">State-of-the-Art Equipment</h5>
+                        <p class="card-text">Access the latest machines and tools for a superior workout experience.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Expert Trainers</h5>
+                        <p class="card-text">Work with certified professionals to achieve your fitness goals.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card shadow-sm">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Flexible Membership</h5>
+                        <p class="card-text">Choose plans that suit your schedule and budget.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">What Our Members Say</h2>
+            <hr class="mb-5">
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <blockquote class="blockquote p-4 bg-white rounded shadow-sm">
+                        <p class="mb-0">"EnerGym has completely transformed my fitness journey. Highly recommended!"</p>
+                        <footer class="blockquote-footer mt-2">Alex Johnson</footer>
+                    </blockquote>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <blockquote class="blockquote p-4 bg-white rounded shadow-sm">
+                        <p class="mb-0">"The trainers here are amazing! They helped me reach my goals faster than I thought possible."</p>
+                        <footer class="blockquote-footer mt-2">Sarah Lee</footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-white bg-dark py-5">
+        <div class="container text-center">
+            <h2>Ready to Start Your Fitness Journey?</h2>
+            <p class="lead">Join EnerGym today and take the first step toward a healthier you.</p>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg">Sign Up Now</a>
+            }
+        </div>
+    </div>
+
+    <footer class="bg-primary text-white py-3">
+        <div class="container text-center">
+            <p>&copy; 2024 EnerGym. All rights reserved.</p>
+            <p>
+                <a href="/Contact" class="text-white">Contact Us</a> |
+                <a href="/Privacy" class="text-white">Privacy Policy</a>
+            </p>
+        </div>
+    </footer>
 </div>

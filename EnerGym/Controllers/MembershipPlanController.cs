@@ -24,6 +24,16 @@ namespace EnerGym.Controllers
             }
         }
 
-
+        public async Task<IActionResult> Details(int id)
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+        }
     }
 }
