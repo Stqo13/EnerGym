@@ -1,1 +1,50 @@
-﻿
+﻿@using EnerGym.ViewModels.MembershipPlanViewModels;
+@model IEnumerable<MembershipPlanInfoViewModel>
+
+@{
+	ViewData["Title"] = "Membership plans";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3" style="margin-top: 20px;">
+    <h2>@ViewData["Title"]</h2>
+</div>
+<hr />
+
+<div id="membershipCarousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- Carousel Items -->
+    <div class="carousel-inner">
+        @for (int i = 0; i < Model.Count(); i++)
+        {
+            var plan = Model.ToList()[i];
+            <div class="carousel-item @(i == 0 ? "active" : "")">
+                <div class="card mx-auto" style="width: 30rem; border: 1px solid #ccc; border-radius: 10px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                    <div class="card-body text-center">
+                        <h5 class="card-title text-uppercase fw-bold">@plan.PlanType</h5>
+                        <h6 class="card-subtitle text-muted mb-3">
+                            @string.Format("{0:C}", plan.Price) - @plan.DurationInMonth month(s)
+                        </h6>
+                        @if (!string.IsNullOrWhiteSpace(plan.Description))
+                        {
+                            <p class="card-text">@plan.Description</p>
+                        }
+                        else
+                        {
+                            <p class="card-text text-muted">No description available.</p>
+                        }
+                        <a href="@Url.Action("Details", "MembershipPlan", new { id = plan.Id })" class="btn btn-primary mt-3">View Details</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <!-- Custom Dark Blue Arrows -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#membershipCarousel" data-bs-slide="prev" style="position: absolute; top: 50%; left: calc(15%); transform: translateY(-50%); border: none; background: none;">
+        <span class="carousel-control-prev-icon" aria-hidden="true" style="filter: invert(15%) sepia(100%) saturate(747%) hue-rotate(197deg) brightness(91%) contrast(96%);"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#membershipCarousel" data-bs-slide="next" style="position: absolute; top: 50%; right: calc(15%); transform: translateY(-50%); border: none; background: none;">
+        <span class="carousel-control-next-icon" aria-hidden="true" style="filter: invert(15%) sepia(100%) saturate(747%) hue-rotate(197deg) brightness(91%) contrast(96%); "></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

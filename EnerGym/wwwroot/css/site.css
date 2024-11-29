@@ -61,7 +61,7 @@ input#ExerciseName.form-control{
     width: 208%;
 }
 
-.save-button{
+.save-button {
     margin-top: 1em;
     display: flex;
     justify-content: center;
