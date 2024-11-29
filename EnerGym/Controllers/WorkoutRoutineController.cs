@@ -51,23 +51,19 @@ namespace EnerGym.Controllers
             if (!ModelState.IsValid)
             {
                 return View(model);
+            }  
+            
+            try
+            {
+                await workoutRoutineService.AddWorkoutRoutineAsync(model);
+
+                return RedirectToAction(nameof(Index));
             }
-
-            await workoutRoutineService.AddWorkoutRoutineAsync(model);
-
-            return RedirectToAction(nameof(Index));
-
-            //try
-            //{
-            //    await workoutRoutineService.AddWorkoutRoutineAsync(model);
-
-            //    return RedirectToAction(nameof(Index));
-            //}
-            //catch (Exception ex)
-            //{
-            //    logger.LogError($"An error occured while trying to add workout routine. {ex.Message}");
-            //    return RedirectToAction("Error", "Home");
-            //}
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while trying to add workout routine. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         [HttpGet]

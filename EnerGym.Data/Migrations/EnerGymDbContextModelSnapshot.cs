@@ -113,7 +113,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("AttendantId");
 
-                    b.ToTable("AttendantsClasses");
+                    b.ToTable("AttendantsClasses", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.GymClass", b =>
@@ -153,7 +153,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("InstructorId");
 
-                    b.ToTable("GymClasses");
+                    b.ToTable("GymClasses", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.MembershipPlan", b =>
@@ -190,7 +190,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("AttendantId");
 
-                    b.ToTable("MembershipPlans");
+                    b.ToTable("MembershipPlans", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.Progress", b =>
@@ -232,7 +232,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("AttendantId");
 
-                    b.ToTable("Progresses");
+                    b.ToTable("Progresses", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.Schedule", b =>
@@ -281,7 +281,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("GymClassId");
 
-                    b.ToTable("Schedules");
+                    b.ToTable("Schedules", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutPlan", b =>
@@ -315,7 +315,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("WorkoutPlans");
+                    b.ToTable("WorkoutPlans", (string)null);
                 });
 
             modelBuilder.Entity("EnerGym.Data.Models.WorkoutRoutine", b =>
@@ -363,7 +363,7 @@ namespace EnerGym.Data.Migrations
 
                     b.HasIndex("WorkoutPlanId");
 
-                    b.ToTable("WorkoutRoutines");
+                    b.ToTable("WorkoutRoutines", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

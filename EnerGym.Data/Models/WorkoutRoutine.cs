@@ -40,6 +40,6 @@ namespace EnerGym.Data.Models
 
         [Comment("Workout Plan Navigation Property")]
         [ForeignKey(nameof(WorkoutPlanId))]
-        public virtual WorkoutPlan? WorkoutPlan { get; set; } = null!;
+        public virtual WorkoutPlan? WorkoutPlan { get; set; }
     }
 }

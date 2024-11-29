@@ -1,5 +1,4 @@
 ﻿using EnerGym.Data.Models.Enums;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -36,10 +35,10 @@ namespace EnerGym.Data.Models
 
         [Comment("Attendat Identifier")]
         [Required]
-        public string AttendantId { get; set; } = null!;
+        public string? AttendantId { get; set; }
 
         [Comment("Foreign Key To Identity User")]
         [ForeignKey(nameof(AttendantId))]
-        public virtual ApplicationUser Attendant { get; set; } = null!;
+        public virtual ApplicationUser? Attendant { get; set; }
     }
 }
