@@ -96,6 +96,34 @@ namespace EnerGym.Services.Data.Implementations
             return true;
         }
 
+        public async Task<bool> RemoveUserRoleAsync(string userId, string roleName)
+        {
+            ApplicationUser? user = await userManager
+                .FindByIdAsync(userId.ToString());
+
+            bool roleExists = await roleManager.RoleExistsAsync(roleName);
+
+            if (user == null || !roleExists)
+            {
+                return false;
+            }
+
+            bool alreadyInRole = await userManager.IsInRoleAsync(user, roleName);
+
+            if (alreadyInRole)
+            {
+                IdentityResult? result = await userManager
+                    .RemoveFromRoleAsync(user, roleName);
+
+                if (!result.Succeeded)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         public async Task<bool> UserExistsByIdAsync(string userId)
         {
             ApplicationUser? user = await userManager.FindByIdAsync(userId.ToString());

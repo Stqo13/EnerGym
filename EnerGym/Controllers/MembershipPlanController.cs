@@ -28,10 +28,13 @@ namespace EnerGym.Controllers
         {
             try
             {
+
+
                 return View();
             }
             catch (Exception ex)
             {
+                logger.LogError($"An error occured while getting membership plan details. {ex.Message}");
                 return RedirectToAction("Error", "Home");
             }
         }

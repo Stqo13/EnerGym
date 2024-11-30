@@ -26,5 +26,10 @@ namespace EnerGym.Services.Data.Implementations
 
             return membershipPlans;
         }
+
+        public Task<MembershipPlanDetailsViewModel> GetMembershipPlanDetails()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

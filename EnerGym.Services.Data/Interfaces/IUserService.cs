@@ -12,6 +12,8 @@ namespace EnerGym.Services.Data.Interfaces
 
         Task<bool> RemoveUserFromRoleAsync(string userId, string roleName);
 
+        Task<bool> RemoveUserRoleAsync(string userId, string roleName);
+
         Task<bool> DeleteUserAsync(string userId);
     }
 }
