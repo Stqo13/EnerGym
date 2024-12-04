@@ -16,5 +16,8 @@ namespace EnerGym.Data.Models
         [Required]
         [MaxLength(LastNameMaxLength)]
         public string LastName { get; set; } = null!;
+
+        public virtual ICollection<AttendantClass> AttendantClasses { get; set; }
+            = new List<AttendantClass>();
     }
 }

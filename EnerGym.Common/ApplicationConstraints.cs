@@ -25,7 +25,11 @@
 
             public const string AdminRole = "Admin";
             public const string InstructorRole = "Instructor";
-            public const string MemberRole = "Member";
+            public const string GymMemberRole = "GymMember";
+            /// <summary>
+            /// Role that does not have a plan active
+            /// </summary>
+            public const string UserRole = "User";
         }
 
         public static class WorkoutRoutineConstraints

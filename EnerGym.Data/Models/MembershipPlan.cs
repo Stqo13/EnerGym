@@ -34,7 +34,6 @@ namespace EnerGym.Data.Models
         public int Duration { get; set; }
 
         [Comment("Attendat Identifier")]
-        [Required]
         public string? AttendantId { get; set; }
 
         [Comment("Foreign Key To Identity User")]

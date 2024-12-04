@@ -4,6 +4,7 @@ using EnerGym.Data.Models.Configurations;
 using EnerGym.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym
 {
@@ -13,9 +14,34 @@ namespace EnerGym
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            //string adminEmail = builder.Configuration.GetValue<string>("Administrator:Email")!;
+            #region UserInfo
 
-            // Add services to the container.
+            string adminEmail = builder.Configuration.GetValue<string>("Administrator:Email")!;
+            string adminFirstName = builder.Configuration.GetValue<string>("Administrator:FirstName")!;
+            string adminLastName = builder.Configuration.GetValue<string>("Administrator:LastName")!;
+            string adminUsername = builder.Configuration.GetValue<string>("Administrator:UserName")!;
+            string adminPassword = builder.Configuration.GetValue<string>("Administrator:Password")!;
+
+            string[] instructorEmails = builder.Configuration.GetSection("Instrucors:Emails").Get<string[]>()!;
+            string[] instructorFirstNames = builder.Configuration.GetSection("Instrucors:FirstNames").Get<string[]>()!;
+            string[] instructorLastNames = builder.Configuration.GetSection("Instrucors:LastNames").Get<string[]>()!;
+            string[] instructorUsernames = builder.Configuration.GetSection("Instrucors:Usernames").Get<string[]>()!;
+            string[] instructorPasswords = builder.Configuration.GetSection("Instrucors:Passwords").Get<string[]>()!;
+
+            string[] gymMemberEmails = builder.Configuration.GetSection("GymMembers:Emails").Get<string[]>()!;
+            string[] gymMemberFirstNames = builder.Configuration.GetSection("GymMembers:FirstNames").Get<string[]>()!;
+            string[] gymMemberLastNames = builder.Configuration.GetSection("GymMembers:LastNames").Get<string[]>()!;
+            string[] gymMemberUsernames = builder.Configuration.GetSection("GymMembers:Usernames").Get<string[]>()!;
+            string[] gymMemberPasswords = builder.Configuration.GetSection("GymMembers:Passwords").Get<string[]>()!;
+
+            string[] userEmails = builder.Configuration.GetSection("Users:Emails").Get<string[]>()!;
+            string[] userFirstNames = builder.Configuration.GetSection("Users:FirstNames").Get<string[]>()!;
+            string[] userLastNames = builder.Configuration.GetSection("Users:LastNames").Get<string[]>()!;
+            string[] userUsernames = builder.Configuration.GetSection("Users:Usernames").Get<string[]>()!;
+            string[] userPasswords = builder.Configuration.GetSection("Users:Passwords").Get<string[]>()!;
+
+            #endregion
+
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<EnerGymDbContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -46,36 +72,6 @@ namespace EnerGym
 
             var app = builder.Build();
 
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-
-                try
-                {
-                    var context = services.GetRequiredService<EnerGymDbContext>();
-
-                    context.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while creating the database.");
-                }
-            }
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                var context = scope.ServiceProvider.GetRequiredService<EnerGymDbContext>();
-
-                if (app.Environment.IsDevelopment())
-                {
-                    await DbSeeder.SeedDatabase(userManager, roleManager, context);
-                }
-            }
-
-            // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseMigrationsEndPoint();
@@ -93,6 +89,45 @@ namespace EnerGym
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            #region SeedUsers
+
+            await app.SeedSignleUserAsync(
+                email: adminEmail,
+                username: adminUsername,
+                firstName: adminFirstName,
+                lastName: adminLastName,
+                password: adminPassword,
+                roleName: AdminRole);
+
+            await app.SeedMultipleUsersAsync(
+                emails: instructorEmails,
+                usernames: instructorUsernames,
+                firstNames: instructorFirstNames,
+                lastNames: instructorLastNames,
+                passwords: instructorPasswords,
+                roleName: InstructorRole
+                );
+
+            await app.SeedMultipleUsersAsync(
+                emails: gymMemberEmails,
+                usernames: gymMemberUsernames,
+                firstNames: gymMemberFirstNames,
+                lastNames: gymMemberLastNames,
+                passwords: gymMemberPasswords,
+                roleName: GymMemberRole
+                );
+
+            await app.SeedMultipleUsersAsync(
+                emails: userEmails,
+                usernames: userUsernames,
+                firstNames: userFirstNames,
+                lastNames: userLastNames,
+                passwords: userPasswords,
+                roleName: UserRole
+                );
+            
+            #endregion
 
             app.MapControllerRoute(
                 name: "areas",

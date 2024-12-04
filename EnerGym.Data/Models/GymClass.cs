@@ -28,19 +28,16 @@ namespace EnerGym.Data.Models
         [Comment("Soft Delete Flag")]
         public bool IsActive { get; set; } = true;
 
-        [Comment("Instructor Foreign Key")]
-        [Required]
-        public string InstructorId { get; set; } = null!;
-
         [Comment("Instructor Navigation Property")]
-        [ForeignKey(nameof(InstructorId))]
-        public virtual ApplicationUser Instructor { get; set; } = null!;
+        [Required]
+        [MaxLength(InstructorNameMaxLength)]
+        public string InstructorName { get; set; } = null!;
 
         /// <summary>
         /// Pagination with a list of class schedules 
         /// (Instructors can create schedule tables for the future)
         /// </summary>
-        public virtual ICollection<Schedule> Schedule { get; set; }
+        public virtual ICollection<Schedule> Schedules { get; set; }
             = new List<Schedule>();
 
         public virtual ICollection<AttendantClass> AttendantClasses { get; set; }

@@ -1,8 +1,8 @@
 ﻿using EnerGym.Data.Models;
-using EnerGym.Data.Models.Configurations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 namespace EnerGym.Data
 {
@@ -34,6 +34,7 @@ namespace EnerGym.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
