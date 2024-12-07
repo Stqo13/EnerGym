@@ -1,8 +1,7 @@
 ﻿using EnerGym.Data.Models.Configurations;
 using EnerGym.Data.Repository.Interfaces;
-using Microsoft.AspNetCore.Http.HttpResults;
+
 using Microsoft.EntityFrameworkCore;
-using System.Formats.Tar;
 
 namespace EnerGym.Data.Repository
 {
@@ -20,16 +19,26 @@ namespace EnerGym.Data.Repository
 
         public TType GetById(TId id)
         {
-            TType entity = this.dbSet
+            TType? entity = this.dbSet
                 .Find(id);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity was null!");
+            }
 
             return entity;
         }
 
         public async Task<TType> GetByIdAsync(TId id)
         {
-            TType entity = await this.dbSet
+            TType? entity = await this.dbSet
                 .FindAsync(id);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity was null!");
+            }
 
             return entity;
         }
@@ -101,7 +110,7 @@ namespace EnerGym.Data.Repository
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -117,7 +126,7 @@ namespace EnerGym.Data.Repository
 
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }

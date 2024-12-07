@@ -1,4 +1,6 @@
-﻿using EnerGym.Data.Models;
+﻿#nullable disable
+
+using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
@@ -81,7 +83,7 @@ namespace EnerGym.Services.Data.Implementations
 
         public async Task DeleteWorkoutRoutineAsync(WorkoutRoutineDeleteViewModel model)
         {
-            WorkoutRoutine? routine = await workoutRoutineRepository
+            WorkoutRoutine routine = await workoutRoutineRepository
                 .GetAllAttached()
                 .Where(r => r.Id == model.Id && r.IsDeleted == false)
                 .FirstOrDefaultAsync();

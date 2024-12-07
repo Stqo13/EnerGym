@@ -19,5 +19,8 @@ namespace EnerGym.Data.Models
 
         public virtual ICollection<AttendantClass> AttendantClasses { get; set; }
             = new List<AttendantClass>();
+
+        public virtual ICollection<MembershipPlan> MembershipPlans { get; set; }
+            = new HashSet<MembershipPlan>();
     }
 }

@@ -1,4 +1,6 @@
-﻿using EnerGym.Data.Models;
+﻿#nullable disable
+
+using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.MembershipPlanViewModels;
@@ -27,9 +29,25 @@ namespace EnerGym.Services.Data.Implementations
             return membershipPlans;
         }
 
-        public Task<MembershipPlanDetailsViewModel> GetMembershipPlanDetails()
+        public async Task<MembershipPlanDetailsViewModel> GetMembershipPlanObtainDetailsAsync(int id)
         {
-            throw new NotImplementedException();
+            var entity = await membershipPlanRepository.GetByIdAsync(id);
+
+            if (entity == null)
+            {
+                throw new NullReferenceException("Entity was null");
+            }
+
+            MembershipPlanDetailsViewModel membershipPlan = new MembershipPlanDetailsViewModel()
+            {
+                Id = entity.Id,
+                PlanType = entity.PlanType.ToString(),
+                Description = entity.Description,
+                Price = entity.Price,
+                DurationInMonth = entity.Duration
+            };
+
+            return membershipPlan;
         }
     }
 }

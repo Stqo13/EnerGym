@@ -7,24 +7,6 @@ namespace EnerGym.Extensions
 {
     public static class ApplicationBuilderExtensions
     {
-        public static IApplicationBuilder ApplyMigrations(this IApplicationBuilder app)
-        {
-            using IServiceScope scope = app.ApplicationServices.CreateScope();
-
-            EnerGymDbContext? context = scope
-                .ServiceProvider
-                .GetService<EnerGymDbContext>();
-
-            if (context == null)
-            {
-                throw new NullReferenceException("Db context was null!");
-            }
-
-            context.Database.Migrate();
-
-            return app;
-        }
-
         public static async Task<IApplicationBuilder> SeedSignleUserAsync
             (this IApplicationBuilder app, string email, string username, string firstName, string lastName, string password, string roleName)
         {

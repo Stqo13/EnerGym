@@ -24,13 +24,13 @@ namespace EnerGym.Controllers
             }
         }
 
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult>ObtainDetails(int id)
         {
             try
             {
+                var model = await membershipPlanService.GetMembershipPlanObtainDetailsAsync(id);
 
-
-                return View();
+                return View(model);
             }
             catch (Exception ex)
             {

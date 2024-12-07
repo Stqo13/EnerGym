@@ -1,4 +1,6 @@
-﻿using EnerGym.Data.Models;
+﻿#nullable disable
+
+using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
@@ -135,7 +137,7 @@ namespace EnerGym.Services.Data.Implementations
                 throw new NullReferenceException("User Id was invalid!");
             }
 
-            string? username = $"{user.FirstName} {user.LastName}";
+            string username = $"{user.FirstName} {user.LastName}";
 
 			var plan = await workoutPlanRepository
                 .GetAllAttached()
@@ -159,7 +161,7 @@ namespace EnerGym.Services.Data.Implementations
 
         public async Task DeletePlanAsync(DeletePlanViewModel model)
         {
-            WorkoutPlan? plan = await workoutPlanRepository
+            WorkoutPlan plan = await workoutPlanRepository
                 .GetAllAttached()
                 .Where(p => p.Id == model.Id && p.IsDeleted == false)
                 .FirstOrDefaultAsync();
