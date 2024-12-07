@@ -1,5 +1,6 @@
 ﻿using EnerGym.Services.Data.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EnerGym.Controllers
 {
@@ -24,6 +25,7 @@ namespace EnerGym.Controllers
             }
         }
 
+        [HttpGet]
         public async Task<IActionResult>ObtainDetails(int id)
         {
             try
@@ -37,6 +39,29 @@ namespace EnerGym.Controllers
                 logger.LogError($"An error occured while getting membership plan details. {ex.Message}");
                 return RedirectToAction("Error", "Home");
             }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToPersonalHall(int id)
+        {
+            try
+            {
+                string userId = GetCurrentClientId();
+
+                await membershipPlanService.AddToPersonalHall(id, userId);
+
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while adding the membership plan to personal hall. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        private string GetCurrentClientId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
         }
     }
 }

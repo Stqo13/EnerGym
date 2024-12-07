@@ -7,5 +7,7 @@ namespace EnerGym.Services.Data.Interfaces
         Task<IEnumerable<MembershipPlanInfoViewModel>> GetAllMembershipPlansAsync();
 
         Task<MembershipPlanDetailsViewModel> GetMembershipPlanObtainDetailsAsync(int id);
+
+        Task AddToPersonalHall(int planId, string userId);
     }
 }

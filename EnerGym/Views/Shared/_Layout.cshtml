@@ -54,6 +54,22 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="MembershipPlan" asp-action="Index">Checkout Our Deals</a>
                         </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="personalHallDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Personal Hall
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="personalHallDropdown">
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PersonalHall" asp-action="UserProgress">My Progress</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PersonalHall" asp-action="UserMembershipPlans">My Membership Plans</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" asp-area="" asp-controller="PersonalHall" asp-action="UserEnrolledClasses">My Enrolled Classes</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
