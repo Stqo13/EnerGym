@@ -146,15 +146,19 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddRoutines(int workoutPlanId)
+        public async Task<IActionResult> AddRoutines(int workoutPlanId, string searchQuery, int? sets, int? reps)
         {
             try
             {
-                var routines = await workoutPlanService.GetAllRoutinesAsync();
+                var routines = await workoutPlanService.GetAllRoutinesAsync(searchQuery, sets, reps);
+
                 var model = new AddRoutinesViewModel
                 {
                     WorkoutPlanId = workoutPlanId,
-                    AvailableRoutines = routines
+                    AvailableRoutines = routines,
+                    SearchQuery = "",
+                    Sets = null,
+                    Reps = null
                 };
 
                 return View(model);

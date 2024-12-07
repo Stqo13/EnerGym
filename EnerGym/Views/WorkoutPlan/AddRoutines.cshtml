@@ -12,6 +12,47 @@
 
 <div class="row justify-content-center">
     <div class="col-lg-8">
+        <form asp-action="AddRoutines" method="get">
+            <input type="hidden" name="WorkoutPlanId" value="@Model.WorkoutPlanId" />
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Search Routines by Name</label>
+                <input type="text" class="form-control" name="searchQuery" value="" placeholder="Search by routine name" />
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Filter by Sets</label>
+                <select class="form-select" name="sets">
+                    <option value="">All Sets</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Filter by Reps</label>
+                <select class="form-select" name="reps">
+                    <option value="">All Reps</option>
+                    <option value="5">5</option>
+                    <option value="8">8</option>
+                    <option value="10">10</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary me-3 fw-bold rounded px-4 py-2">Search & Filter</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<hr />
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
         <form asp-action="AddRoutines" method="post" enctype="multipart/form-data">
             <input type="hidden" name="WorkoutPlanId" value="@Model.WorkoutPlanId" />
 

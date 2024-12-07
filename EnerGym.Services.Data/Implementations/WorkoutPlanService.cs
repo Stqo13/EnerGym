@@ -174,17 +174,37 @@ namespace EnerGym.Services.Data.Implementations
             }
         }
 
-        public async Task<IEnumerable<WorkoutRoutineSelectViewModel>> GetAllRoutinesAsync()
+        public async Task<IEnumerable<WorkoutRoutineSelectViewModel>> GetAllRoutinesAsync(string searchQuery, int? sets, int? reps)
         {
-            var routines = await workoutRoutineRepository
-                .GetAllAttached()
+            var query = workoutRoutineRepository.GetAllAttached();
+
+            if (!string.IsNullOrEmpty(searchQuery))
+            {
+                query = query.Where(r => EF.Functions.Like(r.ExerciseName, "%" + searchQuery + "%"));
+            }
+
+            if (sets.HasValue)
+            {
+                query = query.Where(r => r.Sets == sets);
+            }
+
+            if (reps.HasValue)
+            {
+                query = query.Where(r => r.Reps == reps);
+            }
+
+            var routinesAsQuery = query
                 .Select(r => new WorkoutRoutineSelectViewModel()
                 {
-                    Id= r.Id,
-                    ExerciseName = r.ExerciseName
-                })
-                .ToListAsync();
+                    Id = r.Id,
+                    ExerciseName = r.ExerciseName,
+                    SearchQuery = searchQuery,
+                    Sets = sets,
+                    Reps = reps
+                });
 
+            var routines = await routinesAsQuery.ToListAsync();
+                
             return routines;
         }
 
