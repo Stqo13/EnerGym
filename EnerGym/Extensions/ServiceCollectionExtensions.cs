@@ -29,6 +29,7 @@ namespace EnerGym.Extensions
             services.AddScoped<IWorkoutPlanSevice, WorkoutPlanService>();
             services.AddScoped<IWorkoutRoutineService, WorkoutRoutineService>();
             services.AddScoped<IMembershipPlanService, MembershipPlanService>();
+            services.AddScoped<IGymClassService, GymClassService>();
             services.AddScoped<IPersonalHallService, PersonalHallService>();
 
             return services;

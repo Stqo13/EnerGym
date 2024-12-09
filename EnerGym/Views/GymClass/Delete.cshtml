@@ -16,14 +16,14 @@
             <div class="card-body">
                 <h3 class="card-title text-center">@Model.ClassName</h3>
                 <p class="mb-0"><strong>Published By:</strong> @Model.PublishedBy</p>
-                <p class="text-danger mt-3">Are you sure you want to delete @(Model.ClassName)?</p>
+                <p class="text-danger mt-3">Are you sure you want to deactivate @(Model.ClassName)?</p>
             </div>
             <div class="card-footer">
                 <form asp-action="Delete" method="post">
                     <input type="hidden" asp-for="Id" />
                     <input type="hidden" asp-for="ClassName" />
                     <input type="hidden" asp-for="PublishedBy" />
-                    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+                    <button type="submit" class="btn btn-danger">Confirm Deactivation</button>
                     <a asp-controller="GymClass" asp-action="Details" asp-route-id="@Model.Id" class="btn btn-warning">Cancel</a>
                 </form>
             </div>

@@ -116,7 +116,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Deactivate(int id)
+        public async Task<IActionResult> Delete(int id)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Deactivate(GymClassDeleteViewModel model)
+        public async Task<IActionResult> Delete(GymClassDeleteViewModel model)
         {
             try
             {
