@@ -273,7 +273,11 @@ namespace EnerGym.Services.Data.Implementations
 
         public async Task<IEnumerable<ScheduleInfoViewModel>> GetGymClassSchedulesAsync(int id)
         {
-            var gymClass = await gymClassRepository.GetByIdAsync(id);
+            var gymClass = await gymClassRepository
+                .GetAllAttached()
+                .Include(c => c.Schedules)
+                .Where(c => c.Id == id)
+                .FirstOrDefaultAsync();
 
             if (gymClass == null)
             {
