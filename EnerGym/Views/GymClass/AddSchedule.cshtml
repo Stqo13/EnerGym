@@ -1,0 +1,70 @@
+﻿@using EnerGym.ViewModels.GymClassViewModels;
+@model ScheduleAddViewModel
+
+@{
+    ViewData["Title"] = $"Add Schedule";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3" style="margin-top: 20px;">
+    <h2>@ViewData["Title"]</h2>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="AddSchedule" method="post">
+            <input type="hidden" asp-for="GymClassId" />
+
+            <div class="mb-3">
+                <label asp-for="TimeSchedule" class="form-label">Time of Class</label>
+                <input asp-for="TimeSchedule" type="time" class="form-control" />
+                <span asp-validation-for="TimeSchedule" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3 row">
+                <div class="col-md-6">
+                    <label class="form-label">Select Days</label>
+                    <div class="form-check">
+                        <input asp-for="Monday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Monday">Monday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Tuesday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Tuesday">Tuesday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Wednesday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Wednesday">Wednesday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Thursday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Thursday">Thursday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Friday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Friday">Friday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Saturday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Saturday">Saturday</label>
+                    </div>
+                    <div class="form-check">
+                        <input asp-for="Sunday" class="form-check-input" type="checkbox" />
+                        <label class="form-check-label" for="Sunday">Sunday</label>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Select Week</label>
+                    <input asp-for="Week" class="form-control" type="date" />
+                    <span asp-validation-for="Week" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-primary">Save Schedule</button>
+                <a asp-controller="GymClass" asp-action="Index" class="btn btn-warning ms-2">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>

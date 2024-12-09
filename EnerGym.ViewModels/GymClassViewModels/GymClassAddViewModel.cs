@@ -19,8 +19,5 @@ namespace EnerGym.ViewModels.GymClassViewModels
         [StringLength(InstructorNameMaxLength, MinimumLength = InstructorNameMinLength, ErrorMessage = "Instructor name must be between 20 and 70 characters.")]
         [Required]
         public string InstructorName { get; set; } = null!;
-
-        public List<Schedule> Schedules { get; set; }
-            = new List<Schedule>();
     }
 }

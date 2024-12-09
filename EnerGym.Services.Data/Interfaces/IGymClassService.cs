@@ -15,5 +15,8 @@ namespace EnerGym.Services.Data.Interfaces
         Task DeleteGymClassAsync(GymClassDeleteViewModel model);
         Task<GymClassDetailsViewModel> GetDetailsGymClassByIdAsync(int id);
         Task EnrollUserAsync(int id, string userId);
+        Task<ScheduleAddViewModel> GetScheduletToClassAsync(int id);
+        Task AddScheduleToClassAsync(ScheduleAddViewModel model);
+        Task<IEnumerable<ScheduleInfoViewModel>> GetGymClassSchedulesAsync(int id);
     }
 }

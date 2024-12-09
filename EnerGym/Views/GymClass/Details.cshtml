@@ -26,7 +26,7 @@
                 <a asp-controller="GymClass" asp-action="Index" class="btn btn-secondary d-flex justify-content-center align-items-center flex-fill mx-1">Back</a>
                 <a asp-controller="GymClass" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary d-flex justify-content-center align-items-center flex-fill mx-1">Edit</a>
                 <a asp-controller="GymClass" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning d-flex justify-content-center align-items-center flex-fill mx-1" onclick="return confirm('Are you sure you want to deactivate this class?');">Deactivate</a>
-                <a asp-controller="GymClass" asp-action="AddSchedule" asp-route-gymClassId="@Model.Id" class="btn btn-success d-flex justify-content-center align-items-center flex-fill mx-1">Add Schedule</a>
+                <a asp-controller="GymClass" asp-action="ViewSchedules" asp-route-id="@Model.Id" class="btn btn-success d-flex justify-content-center align-items-center flex-fill mx-1">Schedules</a>
             </div>
         </div>
     </div>

@@ -10,6 +10,7 @@ namespace EnerGym.Services.Data.Implementations
     public class GymClassService(
         IRepository<GymClass, int> gymClassRepository,
         IRepository<AttendantClass, object> attendanceRepository,
+        IRepository<Schedule, int> scheduleRepository,
         UserManager<ApplicationUser> userManager)
         : IGymClassService
     {
@@ -21,7 +22,6 @@ namespace EnerGym.Services.Data.Implementations
                 InstructorName = model.InstructorName,
                 Description = model.Descripton,
                 Capacity = model.Capacity,
-                Schedules = model.Schedules
             };
 
             await gymClassRepository.AddAsync(gymClass);
@@ -222,6 +222,80 @@ namespace EnerGym.Services.Data.Implementations
             };
 
             await attendanceRepository.AddAsync(enrollment);
+        }
+
+        public async Task<ScheduleAddViewModel> GetScheduletToClassAsync(int id)
+        {
+            var gymClass = await gymClassRepository.GetByIdAsync(id);
+
+            if (gymClass == null)
+            {
+                throw new NullReferenceException("Entity not found!");
+            }
+
+            var schedule = new ScheduleAddViewModel()
+            {
+                GymClassId = id
+            };
+
+            return schedule;
+        }
+
+        public async Task AddScheduleToClassAsync(ScheduleAddViewModel model)
+        {
+            var gymClass = await gymClassRepository.GetByIdAsync(model.GymClassId);
+
+            if (gymClass == null)
+            {
+                throw new NullReferenceException("Entity not found!");
+            }
+
+            var schedule = new Schedule()
+            {
+                GymClassId = model.GymClassId,
+                Week = model.Week,
+                TimeSchedule = model.TimeSchedule,
+                Monday = model.Monday,
+                Tuesday = model.Tuesday,
+                Wednesday = model.Wednesday,
+                Thursday = model.Thursday,
+                Friday = model.Friday,
+                Saturday = model.Saturday,
+                Sunday = model.Sunday
+            };
+
+            gymClass.Schedules.Add(schedule);
+
+            await scheduleRepository.AddAsync(schedule);
+
+            await gymClassRepository.UpdateAsync(gymClass);
+        }
+
+        public async Task<IEnumerable<ScheduleInfoViewModel>> GetGymClassSchedulesAsync(int id)
+        {
+            var gymClass = await gymClassRepository.GetByIdAsync(id);
+
+            if (gymClass == null)
+            {
+                throw new NullReferenceException("Entity not found");
+            }
+
+            var schedules = gymClass.Schedules
+                .Select(s => new ScheduleInfoViewModel()
+                {
+                    ScheduleId = s.Id,
+                    StartDate = s.Week,
+                    Monday = s.Monday,
+                    Tuesday = s.Tuesday,
+                    Wednesday = s.Wednesday,
+                    Thursday = s.Thursday,
+                    Friday = s.Friday,
+                    Saturday = s.Saturday,
+                    Sunday = s.Sunday
+                })
+                .ToList();
+
+            return schedules;
         }
     }
 }

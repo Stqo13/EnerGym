@@ -4,6 +4,7 @@ using EnerGym.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EnerGym.Data.Migrations
 {
     [DbContext(typeof(EnerGymDbContext))]
-    partial class EnerGymDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241209153517_WeekRemovedFromSchedule")]
+    partial class WeekRemovedFromSchedule
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -342,10 +345,6 @@ namespace EnerGym.Data.Migrations
                     b.Property<bool>("Wednesday")
                         .HasColumnType("bit");
 
-                    b.Property<DateTime>("Week")
-                        .HasColumnType("datetime2")
-                        .HasComment("The Week Of The Schedule");
-
                     b.HasKey("Id");
 
                     b.HasIndex("GymClassId");
@@ -364,8 +363,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = false,
                             TimeSchedule = new TimeOnly(9, 0, 0),
                             Tuesday = false,
-                            Wednesday = true,
-                            Week = new DateTime(2023, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = true
                         },
                         new
                         {
@@ -378,8 +376,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = true,
                             TimeSchedule = new TimeOnly(11, 0, 0),
                             Tuesday = true,
-                            Wednesday = false,
-                            Week = new DateTime(2023, 10, 9, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = false
                         },
                         new
                         {
@@ -392,8 +389,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = true,
                             TimeSchedule = new TimeOnly(7, 0, 0),
                             Tuesday = false,
-                            Wednesday = false,
-                            Week = new DateTime(2023, 10, 16, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = false
                         },
                         new
                         {
@@ -406,8 +402,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = false,
                             TimeSchedule = new TimeOnly(16, 0, 0),
                             Tuesday = false,
-                            Wednesday = true,
-                            Week = new DateTime(2023, 10, 23, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = true
                         },
                         new
                         {
@@ -420,8 +415,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = false,
                             TimeSchedule = new TimeOnly(18, 30, 0),
                             Tuesday = true,
-                            Wednesday = false,
-                            Week = new DateTime(2023, 10, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = false
                         },
                         new
                         {
@@ -434,8 +428,7 @@ namespace EnerGym.Data.Migrations
                             Thursday = false,
                             TimeSchedule = new TimeOnly(16, 30, 0),
                             Tuesday = false,
-                            Wednesday = true,
-                            Week = new DateTime(2024, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Wednesday = true
                         });
                 });
 

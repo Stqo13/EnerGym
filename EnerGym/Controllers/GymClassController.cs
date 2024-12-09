@@ -184,6 +184,52 @@ namespace EnerGym.Controllers
             }
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddSchedule(int id)
+        {
+            try
+            {
+                var model = await gymClassService.GetScheduletToClassAsync(id);
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while fetching the schedule add form. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSchedule(ScheduleAddViewModel model)
+        {
+            try
+            {
+                await gymClassService.AddScheduleToClassAsync(model);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while adding the schedule to the gym class. {ex.Message}");
+                return RedirectToAction("Error", "Home"); ;
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ViewSchedules(int id)
+        {
+            try
+            {
+                var schedules = await gymClassService.GetGymClassSchedulesAsync(id);
+
+                return View(schedules);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"");
+                throw;
+            }
+        }
+
         private string GetCurrentClientId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier) ?? string.Empty;
