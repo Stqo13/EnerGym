@@ -1,4 +1,5 @@
 ﻿@using EnerGym.ViewModels.WorkoutRoutineViewModels
+@using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 @model WorkoutRoutinesIndexViewModel
 
 @{
@@ -31,9 +32,12 @@
                                 <a asp-controller="WorkoutRoutine" asp-action="Details" asp-route-id="@routine.Id" class="btn btn-info btn-sm">
                                     Details
                                 </a>
-                                <a asp-controller="WorkoutRoutine" asp-action="Edit" asp-route-id="@routine.Id" class="btn btn-secondary btn-sm">
-                                    Edit
-                                </a>
+                                @if (User?.Identity?.IsAuthenticated == true)
+                                {
+                                    <a asp-controller="WorkoutRoutine" asp-action="Edit" asp-route-id="@routine.Id" class="btn btn-secondary btn-sm">
+                                        Edit
+                                    </a>
+                                }
                             </div>
                         </div>
                     </div>
@@ -52,7 +56,6 @@
                     </li>
                 }
 
-                <!-- Display pages with surrounding context (previous, current, next) and the last page -->
                 @if (Model.CurrentPage > 2)
                 {
                     <li class="page-item">

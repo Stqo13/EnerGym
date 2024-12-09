@@ -1,1 +1,34 @@
-﻿
+﻿@using EnerGym.ViewModels.PersonalHallViewModels;
+@model IEnumerable<MembershipPlanInfoViewModel>
+
+@{
+    ViewData["Title"] = "My Membership Plans";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">@ViewData["Title"]</h2>
+    </div>
+    <hr />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Plan Type</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Duration (Months)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var plan in Model)
+            {
+                <tr>
+                    <td>@plan.PlanType</td>
+                    <td>@plan.Description</td>
+                    <td>@plan.Price.ToString("C")</td>
+                    <td>@plan.DurationInMonth</td>
+                </tr>
+            }
+        </tbody>
+    </table>

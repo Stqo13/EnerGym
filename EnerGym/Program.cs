@@ -82,6 +82,8 @@ namespace EnerGym
                 app.UseHsts();
             }
 
+            app.UseBrowserLink();
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 

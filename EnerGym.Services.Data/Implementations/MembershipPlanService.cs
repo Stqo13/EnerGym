@@ -4,6 +4,7 @@ using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.MembershipPlanViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym.Services.Data.Implementations
 {
@@ -74,6 +75,7 @@ namespace EnerGym.Services.Data.Implementations
             }
 
             user.MembershipPlans.Add(plan);
+            await userManager.AddToRoleAsync(user, GymMemberRole);
         }
     }
 }

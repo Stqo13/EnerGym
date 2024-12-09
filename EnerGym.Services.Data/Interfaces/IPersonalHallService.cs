@@ -5,6 +5,7 @@ namespace EnerGym.Services.Data.Interfaces
 {
     public interface IPersonalHallService
     {
-        //Task<ProgressViewModel> GetUserProgress(string userId);
+        Task<IEnumerable<MembershipPlanInfoViewModel>> GetUserMembershipPlansAsync(string userId);
+        Task<IEnumerable<GymClassInfoViewModel>> GetUserEnrolledClassesAsync(string userId);
     }
 }

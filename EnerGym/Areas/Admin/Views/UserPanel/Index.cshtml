@@ -41,7 +41,7 @@
                         </td>
                         <td>
                             <div class="d-flex flex-wrap gap-2">
-                                <form method="post" asp-action="AssignRole" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                <form method="post" asp-action="AssignRole" asp-controller="UserPanel" asp-area="Admin" class="d-inline">
                                     <input type="hidden" name="userId" value="@user.Id" />
                                     <div class="input-group">
                                         <select name="role" class="form-select form-select-sm">
@@ -54,7 +54,7 @@
                                     </div>
                                 </form>
 
-                                <form method="post" asp-action="RemoveRole" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                <form method="post" asp-action="RemoveRole" asp-controller="UserPanel" asp-area="Admin" class="d-inline">
                                     <input type="hidden" name="userId" value="@user.Id" />
                                     <div class="input-group">
                                         <select name="role" class="form-select form-select-sm">
@@ -67,7 +67,7 @@
                                     </div>
                                 </form>
 
-                                <form method="post" asp-action="DeleteUser" asp-controller="UserManagement" asp-area="Admin" class="d-inline">
+                                <form method="post" asp-action="DeleteUser" asp-controller="UserPanel" asp-area="Admin" class="d-inline">
                                     <input type="hidden" name="userId" value="@user.Id" />
                                     <button type="submit" class="btn btn-danger btn-sm">
                                         <i class="bi bi-trash"></i> Delete

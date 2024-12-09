@@ -1,17 +1,21 @@
 ﻿using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutPlanViewModels;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym.Controllers
 {
+    [Authorize]
     public class WorkoutPlanController(
         IWorkoutPlanSevice workoutPlanService,
         ILogger<WorkoutPlanController> logger)
         : Controller
     {
         [HttpGet]
+
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
             try

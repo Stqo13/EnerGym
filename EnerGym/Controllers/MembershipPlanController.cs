@@ -1,9 +1,11 @@
 ﻿using EnerGym.Services.Data.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace EnerGym.Controllers
 {
+    [Authorize]
     public class MembershipPlanController (
         IMembershipPlanService membershipPlanService,
         ILogger<MembershipPlanController> logger)

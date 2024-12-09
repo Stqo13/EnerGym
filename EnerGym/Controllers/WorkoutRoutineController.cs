@@ -1,11 +1,14 @@
 ﻿using EnerGym.Data.Models;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.WorkoutRoutineViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Numerics;
+using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym.Controllers
 {
+    [Authorize]
     public class WorkoutRoutineController(
         IWorkoutRoutineService workoutRoutineService,
         ILogger<WorkoutRoutineController> logger)

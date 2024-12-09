@@ -1,10 +1,13 @@
 ﻿using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.GymClassViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym.Controllers
 {
+    [Authorize]
     public class GymClassController (
         IGymClassService gymClassService,
         ILogger<GymClassController> logger)
@@ -36,6 +39,8 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
+
         public IActionResult Add()
         {
             var workoutPlan = new GymClassAddViewModel();
@@ -44,6 +49,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> Add(GymClassAddViewModel model)
         {
             if (!ModelState.IsValid)
@@ -81,6 +87,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> Edit(int id)
         {
             try
@@ -96,6 +103,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> Edit(GymClassEditViewModel model, int id)
         {
             if (!ModelState.IsValid)
@@ -116,6 +124,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> Delete(int id)
         {
             try
@@ -131,6 +140,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> Delete(GymClassDeleteViewModel model)
         {
             try
@@ -146,6 +156,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole},{GymMemberRole}")]
         public async Task<IActionResult> Enroll(int id)
         {
             try
@@ -161,7 +172,8 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EnrollConfirm(int id)
+        [Authorize(Roles = $"{AdminRole},{InstructorRole},{GymMemberRole}")]
+        public async Task<IActionResult> EnrollConfirmed(int id)
         {
             try
             {
@@ -185,6 +197,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> AddSchedule(int id)
         {
             try
@@ -200,6 +213,7 @@ namespace EnerGym.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{AdminRole},{InstructorRole}")]
         public async Task<IActionResult> AddSchedule(ScheduleAddViewModel model)
         {
             try

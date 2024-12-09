@@ -1,4 +1,5 @@
 ﻿@using EnerGym.ViewModels.GymClassViewModels;
+@using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 @model GymClassesIndexViewModel;
 
 @{
@@ -8,7 +9,7 @@
 <div class="container mt-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2 class="text-primary">@ViewData["Title"]</h2>
-        @if (User?.Identity?.IsAuthenticated == true)
+        @if (User?.Identity?.IsAuthenticated == true && (User.IsInRole(AdminRole) || User.IsInRole(InstructorRole)))
         {
             <a asp-controller="GymClass" asp-action="Add" class="btn btn-primary">
                 <i class="fas fa-plus"></i> Add Gym Class
@@ -35,12 +36,18 @@
                             <a asp-controller="GymClass" asp-action="Details" asp-route-id="@gymClass.Id" class="btn btn-info btn-sm">
                                 Details
                             </a>
-                            <a asp-controller="GymClass" asp-action="AddSchedule" asp-route-id="@gymClass.Id" class="btn btn-primary btn-sm">
-                                Add Schedules
-                            </a>
-                            <a asp-controller="GymClass" asp-action="Enroll" asp-route-id="@gymClass.Id" class="btn btn-secondary btn-sm">
-                                Enroll
-                            </a>
+                            @if (User?.Identity?.IsAuthenticated == true && (User.IsInRole(AdminRole) || User.IsInRole(InstructorRole)))
+                            {
+                                <a asp-controller="GymClass" asp-action="AddSchedule" asp-route-id="@gymClass.Id" class="btn btn-primary btn-sm">
+                                    Add Schedules
+                                </a>
+                            }
+                            @if (User?.Identity?.IsAuthenticated == true && (User.IsInRole(GymMemberRole) || User.IsInRole(AdminRole) || User.IsInRole(InstructorRole)))
+                            {
+                                <a asp-controller="GymClass" asp-action="Enroll" asp-route-id="@gymClass.Id" class="btn btn-secondary btn-sm">
+                                    Enroll
+                                </a>
+                            }
                         </div>
                     </div>
                 </div>

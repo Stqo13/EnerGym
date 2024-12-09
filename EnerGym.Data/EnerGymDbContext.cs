@@ -21,7 +21,6 @@ namespace EnerGym.Data
         public virtual DbSet<AttendantClass> AttendantsClasses { get; set; } = null!;
         public virtual DbSet<GymClass> GymClasses { get; set; } = null!;
         public virtual DbSet<MembershipPlan> MembershipPlans { get; set; } = null!;
-        public virtual DbSet<Progress> Progresses { get; set; } = null!;
         public virtual DbSet<Schedule> Schedules { get; set; } = null!;
         public virtual DbSet<WorkoutPlan> WorkoutPlans { get; set; } = null!;
         public virtual DbSet<WorkoutRoutine> WorkoutRoutines { get; set; } = null!;

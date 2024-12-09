@@ -11,19 +11,32 @@ namespace EnerGym.Controllers
         ILogger<PersonalHallController> logger
         ) : Controller
     {
-        public async Task<IActionResult> UserProgress()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> UserMembershipPlans()
         {
-            return View();
+            try
+            {
+                var plans = await personalHallService.GetUserMembershipPlansAsync(GetCurrentClientId());
+                return View(plans);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while fetching the user's membership plans. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         public async Task<IActionResult> UserEnrolledClasses()
         {
-            return View();
+            try
+            {
+                var classes = await personalHallService.GetUserEnrolledClassesAsync(GetCurrentClientId());
+                return View(classes);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError($"An error occured while fetching the user's enrolled gym classes. {ex.Message}");
+                return RedirectToAction("Error", "Home");
+            }
         }
 
         private string GetCurrentClientId()

@@ -1,1 +1,34 @@
-﻿
+﻿@using EnerGym.ViewModels.PersonalHallViewModels;
+@model IEnumerable<GymClassInfoViewModel>
+
+@{
+    ViewData["Title"] = "My Enrolled Gym Classes";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="text-primary">@ViewData["Title"]</h2>
+    </div>
+    <hr />
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Class Name</th>
+                <th>Instructor</th>
+                <th>Capacity</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var gymClass in Model)
+            {
+                <tr>
+                    <td>@gymClass.ClassName</td>
+                    <td>@gymClass.InstructorName</td>
+                    <td>@gymClass.Capacity</td>
+                    <td>@(gymClass.IsActive ? "Active" : "Inactive")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
