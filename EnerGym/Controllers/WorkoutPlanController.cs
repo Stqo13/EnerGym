@@ -92,6 +92,16 @@ namespace EnerGym.Controllers
                 var plan = await workoutPlanService.GetEditPlanByIdAsync(id);
                 return View(plan);
             }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while trying to get the workout plan. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while trying to get the workout plan. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while trying to get the workout plan. {ex.Message}");
@@ -111,6 +121,16 @@ namespace EnerGym.Controllers
             {
                 var plan = await workoutPlanService.EditPlanAsync(model, id);
                 return RedirectToAction(nameof(Details), new { id = plan.Id });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while trying to edit workout plan. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500});
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while trying to edit workout plan. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404});
             }
             catch (Exception ex)
             {
