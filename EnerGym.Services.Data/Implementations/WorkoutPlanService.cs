@@ -23,7 +23,7 @@ namespace EnerGym.Services.Data.Implementations
                 Name = model.PlanName,
                 Description = model.PlanDescription,
                 ImageUrl = model.ImageUrl,
-                WorkoutRoutines = model.Routines,
+                WorkoutRoutines = model.Routines
             };
 
             await workoutPlanRepository.AddAsync(plan);
