@@ -79,6 +79,16 @@ namespace EnerGym.Controllers
 
                 return View(gymClass);
             }
+            catch(NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching gym class detals. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404});
+            }
+            catch(ArgumentException aex)
+            {
+                logger.LogError($"An error occured while fetching gym class detals. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while fetching gym class detals. {ex.Message}");
@@ -94,6 +104,16 @@ namespace EnerGym.Controllers
             {
                 var model = await gymClassService.GetEditGymClassByIdAsync(id);
                 return View(model);
+            }
+            catch(NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching the edit for gym classes. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while fetching the edit for gym classes. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
             }
             catch (Exception ex)
             {
@@ -116,6 +136,16 @@ namespace EnerGym.Controllers
                 var gymClass = await gymClassService.EditGymClassAsync(model, id);
                 return RedirectToAction(nameof(Details), new { id = gymClass.Id });
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while editing the gym class. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while editing the gym class. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while editing the gym class. {ex.Message}");
@@ -131,6 +161,11 @@ namespace EnerGym.Controllers
             {
                 var model = await gymClassService.GetDeleteGymClassByIdAsync(id, GetCurrentClientId());
                 return View(model);
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching delete form for gym class. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
             }
             catch (Exception ex)
             {
@@ -164,6 +199,16 @@ namespace EnerGym.Controllers
                 var model = await gymClassService.GetDetailsGymClassByIdAsync(id);
                 return View(model);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching confirm enrollment. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while fetching confirm enrollment. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while fetching confirm enrollment. {ex.Message}");
@@ -188,6 +233,11 @@ namespace EnerGym.Controllers
 
                 return RedirectToAction(nameof(Index));
             }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while fetching confirm enrollment. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while adding the enrolling the user. {ex.Message}");
@@ -202,8 +252,13 @@ namespace EnerGym.Controllers
         {
             try
             {
-                var model = await gymClassService.GetScheduletToClassAsync(id);
+                var model = await gymClassService.GetScheduletOfClassAsync(id);
                 return View(model);
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching the schedule add form. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
             }
             catch (Exception ex)
             {
@@ -221,10 +276,15 @@ namespace EnerGym.Controllers
                 await gymClassService.AddScheduleToClassAsync(model);
                 return RedirectToAction(nameof(Index));
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while adding the schedule to the gym class. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while adding the schedule to the gym class. {ex.Message}");
-                return RedirectToAction("Error", "Home"); ;
+                return RedirectToAction("Error", "Home");
             }
         }
 
@@ -237,10 +297,15 @@ namespace EnerGym.Controllers
 
                 return View(schedules);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching the gym class schedules. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
-                logger.LogError($"");
-                throw;
+                logger.LogError($"An error occured while fetching the gym class schedules. {ex.Message}");
+                return RedirectToAction("Error", "Home");
             }
         }
 

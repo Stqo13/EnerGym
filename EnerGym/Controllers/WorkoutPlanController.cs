@@ -77,6 +77,16 @@ namespace EnerGym.Controllers
                 var plan = await workoutPlanService.GetPlanDetailsAsync(id);
                 return View(plan);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while trying to show workout plan details. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while trying to show workout plan details. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500});
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while trying to show workout plan details. {ex.Message}");
@@ -147,6 +157,11 @@ namespace EnerGym.Controllers
                 var plan = await workoutPlanService.GetDeletePlanByIdAsync(id, GetCurrentClientId());
                 return View(plan);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while showing delete workout plan {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while showing delete workout plan {ex.Message}");
@@ -208,6 +223,16 @@ namespace EnerGym.Controllers
                 await workoutPlanService.AddRoutinesToPlanAsync(model.WorkoutPlanId, model.SelectedRoutineIds);
                 return RedirectToAction("Details", new { id = model.WorkoutPlanId });
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occurred while adding routines to the plan. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occurred while adding routines to the plan. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occurred while adding routines to the plan. {ex.Message}");
@@ -231,6 +256,16 @@ namespace EnerGym.Controllers
                 };
 
                 return View(model);
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while fetching the plan's routines. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while fetching the plan's routines. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
             }
             catch (Exception ex)
             {

@@ -78,6 +78,11 @@ namespace EnerGym.Controllers
 
                 return View(routine);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while getting delete UI. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while getting delete UI. {ex.Message}");
@@ -110,6 +115,16 @@ namespace EnerGym.Controllers
 
                 return View(routine);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while trying to show workout routine details. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while trying to show workout routine details. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while trying to show workout routine details. {ex.Message}");
@@ -124,6 +139,16 @@ namespace EnerGym.Controllers
             {
                 var routine = await workoutRoutineService.GetEditWorkoutPlanByIdAsync(id);
                 return View(routine);
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error ocurred while fetching edit UI. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error ocurred while fetching edit UI. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
             }
             catch (Exception ex)
             {
@@ -144,6 +169,16 @@ namespace EnerGym.Controllers
             {
                 var routine = await workoutRoutineService.EditWorkoutRoutine(model, id);
                 return RedirectToAction(nameof(Index), new { id = routine.Id });
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while edditing workout routine. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (ArgumentException aex)
+            {
+                logger.LogError($"An error occured while edditing workout routine. {aex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
             }
             catch (Exception ex)
             {

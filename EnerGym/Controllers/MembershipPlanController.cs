@@ -36,6 +36,11 @@ namespace EnerGym.Controllers
 
                 return View(model);
             }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while getting membership plan details. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
             catch (Exception ex)
             {
                 logger.LogError($"An error occured while getting membership plan details. {ex.Message}");
@@ -53,6 +58,16 @@ namespace EnerGym.Controllers
                 await membershipPlanService.AddToPersonalHall(id, userId);
 
                 return RedirectToAction(nameof(Index));
+            }
+            catch (NullReferenceException nex)
+            {
+                logger.LogError($"An error occured while adding the membership plan to personal hall. {nex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 404 });
+            }
+            catch (InvalidOperationException iex)
+            {
+                logger.LogError($"An error occured while adding the membership plan to personal hall. {iex.Message}");
+                return RedirectToAction("Error", "Home", new { code = 500 });
             }
             catch (Exception ex)
             {

@@ -257,6 +257,5 @@ namespace EnerGym.Services.Data.Implementations
 
             return routines;
         }
-        
     }
 }

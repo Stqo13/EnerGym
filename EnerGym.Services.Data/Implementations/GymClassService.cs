@@ -224,7 +224,7 @@ namespace EnerGym.Services.Data.Implementations
             await attendanceRepository.AddAsync(enrollment);
         }
 
-        public async Task<ScheduleAddViewModel> GetScheduletToClassAsync(int id)
+        public async Task<ScheduleAddViewModel> GetScheduletOfClassAsync(int id)
         {
             var gymClass = await gymClassRepository.GetByIdAsync(id);
 
