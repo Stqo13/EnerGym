@@ -26,11 +26,11 @@ namespace EnerGym.Controllers
         {
             if (code == 404)
             {
-                return View("404");
+                return View("NotFoundError");
             }
             else if (code == 500)
             {
-                return View("500");
+                return View("BadRequestError");
             }
 
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

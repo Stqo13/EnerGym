@@ -15,7 +15,6 @@ namespace EnerGym.Controllers
         : Controller
     {
         [HttpGet]
-
         public async Task<IActionResult> Index(int pageNumber = 1)
         {
             try
