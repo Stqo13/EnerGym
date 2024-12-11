@@ -65,7 +65,7 @@ namespace EnerGym
 
             builder.Services
                 .RegisterRepositories()
-                .RegisterUserDefinedServices(); 
+                .RegisterUserDefinedServices();
 
             builder.Services.AddRazorPages();
             builder.Services.AddControllersWithViews();
@@ -127,7 +127,7 @@ namespace EnerGym
                 passwords: userPasswords,
                 roleName: UserRole
                 );
-            
+
             #endregion
 
             app.MapControllerRoute(

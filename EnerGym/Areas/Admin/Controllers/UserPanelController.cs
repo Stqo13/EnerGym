@@ -6,9 +6,9 @@ using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 
 namespace EnerGym.Areas.Admin.Controllers
 {
-    [Area(AdminRole)]
-    //[Authorize(Roles = AdminRole)]
-    public class UserPanelController 
+    [Area("Admin")]
+    [Authorize(Roles = $"{AdminRole}")]
+    public class UserPanelController
         (IUserService userService)
         : Controller
     {
@@ -85,5 +85,6 @@ namespace EnerGym.Areas.Admin.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }

@@ -20,7 +20,7 @@ namespace EnerGym.Services.Data.Implementations
                 return false;
             }
 
-            if (await userManager.IsInRoleAsync(user, roleName))
+            if (!await userManager.IsInRoleAsync(user, roleName))
             {
                 IdentityResult result = await userManager.AddToRoleAsync(user, roleName);
 
