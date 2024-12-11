@@ -92,7 +92,7 @@ namespace EnerGym.Areas.Identity.Pages.Account
                 {
                     logger.LogInformation("User created a new account with password.");
 
-                    IdentityResult userResult = await userManager.AddToRoleAsync(user, UserRole);
+                    IdentityResult userResult = await userManager.AddToRoleAsync(user, AdminRole);
                     if (!userResult.Succeeded)
                     {
                         throw new InvalidOperationException($"Error occurred while adding the user {user.UserName} to the {UserRole} role!");

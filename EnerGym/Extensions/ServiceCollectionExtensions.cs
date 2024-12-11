@@ -17,6 +17,7 @@ namespace EnerGym.Extensions
             services.AddScoped<IRepository<Schedule, int>, Repository<Schedule, int>>();
             services.AddScoped<IRepository<WorkoutPlan, int>, Repository<WorkoutPlan, int>>();
             services.AddScoped<IRepository<WorkoutRoutine, int>, Repository<WorkoutRoutine, int>>();
+            services.AddScoped<IRepository<ApplicationUser, string>, Repository<ApplicationUser, string>>();
 
             return services;
         }

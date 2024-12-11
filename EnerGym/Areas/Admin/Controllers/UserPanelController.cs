@@ -7,7 +7,7 @@ using static EnerGym.Common.ApplicationConstraints.ApplicationUserConstraints;
 namespace EnerGym.Areas.Admin.Controllers
 {
     [Area(AdminRole)]
-    [Authorize(Roles = AdminRole)]
+    //[Authorize(Roles = AdminRole)]
     public class UserPanelController 
         (IUserService userService)
         : Controller

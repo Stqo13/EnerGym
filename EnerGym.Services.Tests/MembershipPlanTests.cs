@@ -13,18 +13,20 @@ namespace EnerGym.Tests.Services
     {
         private MembershipPlanService _service;
         private Mock<IRepository<MembershipPlan, int>> _mockRepository;
+        private Mock<IRepository<ApplicationUser, string>> _mockUserRepository;
         private Mock<UserManager<ApplicationUser>> _mockUserManager;
 
         [SetUp]
         public void Setup()
         {
             _mockRepository = new Mock<IRepository<MembershipPlan, int>>();
+            _mockUserRepository = new Mock<IRepository<ApplicationUser, string>>();
 
             var mockUserStore = new Mock<IUserStore<ApplicationUser>>();
             _mockUserManager = new Mock<UserManager<ApplicationUser>>(
                 mockUserStore.Object, null!, null!, null!, null!, null!, null!, null!, null!);
 
-            _service = new MembershipPlanService(_mockRepository.Object, _mockUserManager.Object);
+            _service = new MembershipPlanService(_mockRepository.Object, _mockUserRepository.Object, _mockUserManager.Object);
         }
 
         [Test]

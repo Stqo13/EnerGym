@@ -8,7 +8,7 @@ namespace EnerGym.ViewModels.GymClassViewModels
     {
         public int Id { get; set; } 
 
-        [StringLength(ClassNameMaxLength, MinimumLength = ClassNameMinLength, ErrorMessage = "Class name must be between 20 and 150 characters.")]
+        [StringLength(ClassNameMaxLength, MinimumLength = ClassNameMinLength, ErrorMessage = "Class name must be between 5 and 150 characters.")]
         [Required]
         public string ClassName { get; set; } = null!;
 
@@ -18,7 +18,7 @@ namespace EnerGym.ViewModels.GymClassViewModels
         [Required]
         public int Capacity { get; set; }
 
-        [StringLength(InstructorNameMaxLength, MinimumLength = InstructorNameMinLength, ErrorMessage = "Instructor name must be between 20 and 70 characters.")]
+        [StringLength(InstructorNameMaxLength, MinimumLength = InstructorNameMinLength, ErrorMessage = "Instructor name must be between 5 and 70 characters.")]
         [Required]
         public string InstructorName { get; set; } = null!;
 

@@ -9,10 +9,10 @@
 
         public static class GymClassConstraints 
         {
-            public const int ClassNameMinLength = 20;
+            public const int ClassNameMinLength = 5;
             public const int ClassNameMaxLength = 150;
             public const int DescriptionMaxLength = 200;
-            public const int InstructorNameMinLength = 20;
+            public const int InstructorNameMinLength = 5;
             public const int InstructorNameMaxLength = 70;
         }
 

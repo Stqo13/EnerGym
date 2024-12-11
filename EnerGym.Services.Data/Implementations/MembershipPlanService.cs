@@ -1,4 +1,5 @@
-﻿using EnerGym.Data.Models;
+﻿using EnerGym.Data;
+using EnerGym.Data.Models;
 using EnerGym.Data.Repository.Interfaces;
 using EnerGym.Services.Data.Interfaces;
 using EnerGym.ViewModels.MembershipPlanViewModels;
@@ -10,6 +11,7 @@ namespace EnerGym.Services.Data.Implementations
 {
     public class MembershipPlanService(
         IRepository<MembershipPlan, int> membershipPlanRepository,
+        IRepository<ApplicationUser, string> userRepository,
         UserManager<ApplicationUser> userManager)
         : IMembershipPlanService
     {
@@ -53,7 +55,9 @@ namespace EnerGym.Services.Data.Implementations
 
         public async Task AddToPersonalHall(int planId, string userId)
         {
-            ApplicationUser? user = await userManager.FindByIdAsync(userId);
+            ApplicationUser? user = await userManager.Users
+                .Include(u => u.MembershipPlans)
+                .FirstOrDefaultAsync(u => u.Id == userId);
 
             if (user == null)
             {
@@ -75,6 +79,8 @@ namespace EnerGym.Services.Data.Implementations
             }
 
             user.MembershipPlans.Add(plan);
+            await userRepository.UpdateAsync(user);
+
             await userManager.AddToRoleAsync(user, GymMemberRole);
         }
     }
